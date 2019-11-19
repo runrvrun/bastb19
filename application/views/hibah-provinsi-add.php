@@ -377,7 +377,7 @@
     ],
     "ajax": {
         "type": "POST",
-        "url": '<?php echo base_url("AlokasiProvinsi/AjaxGetAllDataForHibah"); ?>',
+        "url": '<?php echo base_url("Alokasi_provinsi/index_hibah_json"); ?>',
         "dataType": "json",
     },
     "fnDrawCallback": function( oSettings ) {
@@ -393,7 +393,7 @@
         { data: "merk" },
         { data: "nama_provinsi" },
         { data: "nama_kabupaten" },
-        { data: "alokasi" },
+        { data: "jumlah_barang" },
         { data: "nilai_barang" },
         { data: "harga_satuan" },
         { data: "dinas" },
@@ -427,7 +427,7 @@
       if(table.row(this).data()["status_rilis"] == 'BELUM'){
         var id = table.row(this).id();
         // alert( 'Clicked row id '+id );
-        var unit = table.row(this).data()["alokasi"].replace(/\,/g,"");
+        var unit = table.row(this).data()["jumlah_barang"].replace(/\,/g,"");
         var nilai = table.row(this).data()["nilai_barang"].replace(/\,/g,"");
         if($("#chk_"+id).is(":checked")){
           $("#chk_"+id).prop('checked', false);

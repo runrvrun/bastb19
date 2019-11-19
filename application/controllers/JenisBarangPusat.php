@@ -214,7 +214,8 @@ class JenisBarangPusat extends CI_Controller {
 
 	public function GetMerk()
 	{
-		$nama_barang = urldecode($this->input->get('nama_barang'));
+		// $nama_barang = urldecode($this->input->get('nama_barang'));
+		$nama_barang = $this->input->get('nama_barang');
 		$id_penyedia_pusat = urldecode($this->input->get('id_penyedia_pusat'));
 
 		// $data = $this->JenisBarangPusatModel->GetMerk($id_jenis_barang_pusat);

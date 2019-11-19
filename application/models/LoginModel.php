@@ -10,6 +10,7 @@
 		{
 			$this->db->where('id_pengguna', $username);
 			$this->db->where('password', md5($password));
+			$this->db->where('is_active', 1);
 			$res = $this->db->get('tb_admin');
 			// die($this->db->last_query());
 			if($res->num_rows() > 0)

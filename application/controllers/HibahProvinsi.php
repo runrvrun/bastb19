@@ -713,8 +713,8 @@ class HibahProvinsi extends CI_Controller {
 		    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 		    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-		    		$unit = $alokasi->jumlah_barang_detail;
-		    		$nilai = $alokasi->nilai_barang_detail;
+		    		$unit = $alokasi->jumlah_barang;
+		    		$nilai = $alokasi->nilai_barang;
 		    	}
 		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
 		    		$unit = $alokasi->jumlah_barang_rev_1;
@@ -1014,8 +1014,8 @@ class HibahProvinsi extends CI_Controller {
 		    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 		    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-		    		$unit = $alokasi->jumlah_barang_detail;
-		    		$nilai = $alokasi->nilai_barang_detail;
+		    		$unit = $alokasi->jumlah_barang;
+		    		$nilai = $alokasi->nilai_barang;
 		    	}
 		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
 		    		$unit = $alokasi->jumlah_barang_rev_1;
@@ -1283,8 +1283,8 @@ class HibahProvinsi extends CI_Controller {
 		    	// $pdf->Cell(1.25, 1, '', 1, 0, 'C');
 
 		    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-		    		$unit = $alokasi->jumlah_barang_detail;
-		    		$nilai = $alokasi->nilai_barang_detail;
+		    		$unit = $alokasi->jumlah_barang;
+		    		$nilai = $alokasi->nilai_barang;
 		    	}
 		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
 		    		$unit = $alokasi->jumlah_barang_rev_1;
@@ -2008,8 +2008,8 @@ class HibahProvinsi extends CI_Controller {
 			    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 			    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-			    		$unit = $alokasi->jumlah_barang_detail;
-			    		$nilai = $alokasi->nilai_barang_detail;
+			    		$unit = $alokasi->jumlah_barang;
+			    		$nilai = $alokasi->nilai_barang;
 			    	}
 			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
 			    		$unit = $alokasi->jumlah_barang_rev_1;
@@ -2309,8 +2309,8 @@ class HibahProvinsi extends CI_Controller {
 			    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 			    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-			    		$unit = $alokasi->jumlah_barang_detail;
-			    		$nilai = $alokasi->nilai_barang_detail;
+			    		$unit = $alokasi->jumlah_barang;
+			    		$nilai = $alokasi->nilai_barang;
 			    	}
 			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
 			    		$unit = $alokasi->jumlah_barang_rev_1;
@@ -2577,8 +2577,8 @@ class HibahProvinsi extends CI_Controller {
 			    	// $pdf->Cell(1.25, 1, '', 1, 0, 'C');
 
 			    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-			    		$unit = $alokasi->jumlah_barang_detail;
-			    		$nilai = $alokasi->nilai_barang_detail;
+			    		$unit = $alokasi->jumlah_barang;
+			    		$nilai = $alokasi->nilai_barang;
 			    	}
 			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
 			    		$unit = $alokasi->jumlah_barang_rev_1;
@@ -2779,11 +2779,11 @@ class HibahProvinsi extends CI_Controller {
 	        if ( $has === false ) {
 	            $finalArray[] = $nvalue;
 	        } else {
-	            $finalArray[$fk]->jumlah_barang_detail += $nvalue->jumlah_barang_detail;
+	            $finalArray[$fk]->jumlah_barang += $nvalue->jumlah_barang;
 	            $finalArray[$fk]->jumlah_barang_rev_1 += $nvalue->jumlah_barang_rev_1;
 	            $finalArray[$fk]->jumlah_barang_rev_2 += $nvalue->jumlah_barang_rev_2;
 
-	            $finalArray[$fk]->nilai_barang_detail += $nvalue->nilai_barang_detail;
+	            $finalArray[$fk]->nilai_barang += $nvalue->nilai_barang;
 	            $finalArray[$fk]->nilai_barang_rev_1 += $nvalue->nilai_barang_rev_1;
 	            $finalArray[$fk]->nilai_barang_rev_2 += $nvalue->nilai_barang_rev_2;
 	        }

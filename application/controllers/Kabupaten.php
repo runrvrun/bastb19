@@ -206,6 +206,7 @@ class Kabupaten extends CI_Controller {
 	{
 		$id_provinsi = $this->input->get('id_provinsi');
 		$data = $this->KabupatenModel->GetByProvinsi($id_provinsi);
+		// $data = $this->KabupatenModel->GetAll();
 		$hasil = json_encode($data);
 		header('HTTP/1.1: 200');
 		header('Status: 200');
@@ -226,5 +227,43 @@ class Kabupaten extends CI_Controller {
 			exit($hasil);
 		}
 		
+	}
+	
+	public function autofill()
+	{
+		$id = $this->session->userdata('logged_in')->id_kabupaten;
+		$param['kabupaten'] = $this->KabupatenModel->Get($id);
+
+		$this->load->library('parser');
+		$this->load->model('ProvinsiModel');
+		$param['provinsi'] = $this->ProvinsiModel->GetAll();
+		
+		$data = array(
+	        'title' => 'Data Kabupaten',
+	        'content-path' => 'ADMINISTRATOR / DATA KABUPATEN / UBAH DATA AUTOFILL',
+	        'content' => $this->load->view('kabupaten-edit-autofill', $param, TRUE),
+		);
+		$this->parser->parse('default_template', $data);
+	}
+
+	public function update_autofill()
+	{
+		$id = $this->input->post('id');
+		$data = array(
+			'nama_dinas' => strtoupper($this->input->post('nama_dinas')),
+			'nama_penyerah' => strtoupper($this->input->post('nama_penyerah')),
+			'jabatan_penyerah' => strtoupper($this->input->post('jabatan_penyerah')),
+			'notelp_penyerah' => strtoupper($this->input->post('notelp_penyerah')),
+			'alamat_penyerah' => strtoupper($this->input->post('alamat_penyerah')),
+			'id_provinsi_penyerah' => strtoupper($this->input->post('id_provinsi_penyerah')),
+			'id_kabupaten_penyerah' => strtoupper($this->input->post('id_kabupaten_penyerah')),
+			'nama_mengetahui' => strtoupper($this->input->post('nama_mengetahui')),
+			'jabatan_mengetahui' => strtoupper($this->input->post('jabatan_mengetahui')),
+			'updated_by' => $this->session->userdata('logged_in')->id_pengguna,
+			'updated_at' => NOW,
+		);
+		$this->KabupatenModel->Update($id, $data);
+		$this->session->set_flashdata('info','Data updated successfully.');
+		redirect('Home');
 	}
 }

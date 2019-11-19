@@ -158,7 +158,6 @@ class PenyediaPusat extends CI_Controller {
 			$this->session->set_flashdata('info','Data updated successfully.');
 			redirect('PenyediaPusat');
 		}
-		
 	}
 
 	public function doDelete()
@@ -169,5 +168,40 @@ class PenyediaPusat extends CI_Controller {
 		$this->session->set_flashdata('info','Data deleted successfully.');
 		redirect('PenyediaPusat');
 		
+	}
+
+	public function autofill()
+	{
+		$id = $this->session->userdata('logged_in')->id_penyedia_pusat;
+		$param['penyedia_pusat'] = $this->PenyediaPusatModel->Get($id);
+
+		$this->load->library('parser');
+		$this->load->model('ProvinsiModel');
+		$param['provinsi'] = $this->ProvinsiModel->GetAll();
+		
+		$data = array(
+	        'title' => 'Data Penyedia Pusat',
+	        'content-path' => 'ADMINISTRATOR / DATA PENYEDIA PUSAT / UBAH DATA AUTOFILL',
+	        'content' => $this->load->view('penyedia-pusat-edit-autofill', $param, TRUE),
+		);
+		$this->parser->parse('default_template', $data);
+	}
+
+	public function update_autofill()
+	{
+		$id = $this->input->post('id');
+		$data = array(
+			'nama_penyerah' => strtoupper($this->input->post('nama_penyerah')),
+			'jabatan_penyerah' => strtoupper($this->input->post('jabatan_penyerah')),
+			'notelp_penyerah' => strtoupper($this->input->post('notelp_penyerah')),
+			'alamat_penyerah' => strtoupper($this->input->post('alamat_penyerah')),
+			'id_provinsi_penyerah' => strtoupper($this->input->post('id_provinsi_penyerah')),
+			'id_kabupaten_penyerah' => strtoupper($this->input->post('id_kabupaten_penyerah')),
+			'updated_by' => $this->session->userdata('logged_in')->id_pengguna,
+			'updated_at' => NOW,
+		);
+		$this->PenyediaPusatModel->Update($id, $data);
+		$this->session->set_flashdata('info','Data updated successfully.');
+		redirect('Home');
 	}
 }

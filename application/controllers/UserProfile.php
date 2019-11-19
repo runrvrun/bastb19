@@ -70,7 +70,7 @@ class UserProfile extends CI_Controller {
 
 			$kodefile_upload = strtotime(NOW);
 			$tempFile = $_FILES['file_avatar']['tmp_name'];
-	        $targetFile =  $target_file = $_SERVER['DOCUMENT_ROOT'].'/upload/user_profile/'.$kodefile_upload.basename($_FILES['file_avatar']['name']);
+	        $targetFile =  $target_file = $this->config->item('doc_root').'/upload/user_profile/'.$kodefile_upload.basename($_FILES['file_avatar']['name']);
 	        move_uploaded_file($tempFile, $target_file);
 	        $file_avatar = $kodefile_upload.basename($_FILES['file_avatar']['name']);
 	        $gantigambar = 1;

@@ -76,7 +76,7 @@
           for(var i=0;i<data.length;i++)
           {
             // $('#id_penyedia_provinsi').append($('<option></option>').attr('value', data[i]["id"]).text(data[i]["nama_penyedia_provinsi"]));
-            if(data[i]["id_penyedia_provinsi"] == '<?php echo $jenis_barang_provinsi->id_penyedia_provinsi; ?>'){
+            if(data[i]["id"] == '<?php echo $jenis_barang_provinsi->id_penyedia_provinsi; ?>'){
               $('#id_penyedia_provinsi').append(
                 "<option value='"+data[i]["id"]+"' selected>"+data[i]["nama_penyedia_provinsi"]+"</option>"
               );

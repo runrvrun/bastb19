@@ -203,4 +203,39 @@ class PenyediaProvinsi extends CI_Controller {
 		}
 		
 	}
+	
+	public function autofill()
+	{
+		$id = $this->session->userdata('logged_in')->id_penyedia_provinsi;
+		$param['penyedia_provinsi'] = $this->PenyediaProvinsiModel->Get($id);
+
+		$this->load->library('parser');
+		$this->load->model('ProvinsiModel');
+		$param['provinsi'] = $this->ProvinsiModel->GetAll();
+		
+		$data = array(
+	        'title' => 'Data Penyedia Provinsi',
+	        'content-path' => 'ADMINISTRATOR / DATA PENYEDIA TP PROVINSI / UBAH DATA AUTOFILL',
+	        'content' => $this->load->view('penyedia-provinsi-edit-autofill', $param, TRUE),
+		);
+		$this->parser->parse('default_template', $data);
+	}
+
+	public function update_autofill()
+	{
+		$id = $this->input->post('id');
+		$data = array(
+			'nama_penyerah' => strtoupper($this->input->post('nama_penyerah')),
+			'jabatan_penyerah' => strtoupper($this->input->post('jabatan_penyerah')),
+			'notelp_penyerah' => strtoupper($this->input->post('notelp_penyerah')),
+			'alamat_penyerah' => strtoupper($this->input->post('alamat_penyerah')),
+			'id_provinsi_penyerah' => strtoupper($this->input->post('id_provinsi_penyerah')),
+			'id_kabupaten_penyerah' => strtoupper($this->input->post('id_kabupaten_penyerah')),
+			'updated_by' => $this->session->userdata('logged_in')->id_pengguna,
+			'updated_at' => NOW,
+		);
+		$this->PenyediaProvinsiModel->Update($id, $data);
+		$this->session->set_flashdata('info','Data updated successfully.');
+		redirect('Home');
+	}
 }

@@ -35,16 +35,18 @@ class LaporanKontrakProvinsi extends CI_Controller {
 	public function AjaxGetDataUnit()
 	{
 		$columns = array( 
-            0 => 'no_kontrak', 
-            1 => 'nama_barang',
-            2 => 'nama_penyedia_provinsi',
-            3 => 'kontrak',
-            4 => 'alokasi',
-            5 => 'persen_alokasi',
-            6 => 'bapsthp',
-            7 => 'persen_bapsthp',
-            8 => 'bastb',
-            9 => 'persen_bastb'
+            0 => 'nama_provinsi', 
+            1 => 'no_kontrak', 
+            2 => 'nama_barang',
+            3 => 'merk',
+            4 => 'nama_penyedia_provinsi',
+            5 => 'kontrak',
+            6 => 'alokasi',
+            7 => 'persen_alokasi',
+            8 => 'baphp',
+            9 => 'persen_baphp',
+            10 => 'bastb',
+            11 => 'persen_bastb'
         );
 
 		$list_nama_barang = $this->input->post('barang');
@@ -58,47 +60,50 @@ class LaporanKontrakProvinsi extends CI_Controller {
         $order = $columns[$this->input->post('order')[0]['column']];
         $dir = $this->input->post('order')[0]['dir'];
 
-		$totalData = $this->LaporanProvinsiModel->GetAllAjaxCountKontrak($list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-            
-        $totalFiltered = $totalData; 
-
-        //search data percolumn
+		$totalData = $this->LaporanProvinsiModel->getKontrak();            
+        $totalData = count($totalData); 
         $filtercond = '';
-        for($i=0;$i<count($columns);$i++){
-        	if(!empty($this->input->post('columns')[$i]['search']['value'])){
-        		$search = $this->input->post('columns')[$i]['search']['value'];
-        		$filtercond  .= " and ".$columns[$i]." LIKE '%".$search."%'"; 
-        	}	        	
+        if(!empty($list_id_provinsi)){
+            $id_provinsis = implode(',',$list_id_provinsi);
+            // var_dump($id_provinsis);exit();
+            $filtercond  .= " AND id_provinsi IN ($id_provinsis)";
         }
-
-		if(empty($this->input->post('search')['value']))
-        {            
-            $posts = $this->LaporanProvinsiModel->GetAllForAjaxKontrak($_POST['start'], $_POST['length'], $order, $dir, $filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-            $totalFiltered = $this->LaporanProvinsiModel->GetFilterAjaxCountKontrak($filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-        }
-        else {
-            $search = $this->input->post('search')['value']; 
-
-            $posts =  $this->LaporanProvinsiModel->GetSearchAjaxKontrak($_POST['start'], $_POST['length'], $search, $order, $dir, $filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-
-            $totalFiltered = $this->LaporanProvinsiModel->GetSearchAjaxCountKontrak($search, $filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-        }
+        $search = $this->input->post('search')['value'];
+        $search = " AND (nama_provinsi LIKE '%".$search."%'
+                        OR no_kontrak LIKE '%".$search."%'
+                        OR nama_barang LIKE '%".$search."%'
+                        OR merk LIKE '%".$search."%'
+                        OR nama_penyedia_provinsi LIKE '%".$search."%'
+                        )"; 
+        
+            $posts =  $this->LaporanProvinsiModel->getKontrak(array('start'=>$_POST['start'], 'length'=>$_POST['length'], 'search'=>$search, 'col'=>$order, 'dir'=>$dir, 'filter'=>$filtercond));
+            $totalFiltered = $this->LaporanProvinsiModel->getKontrak(array('search'=>$search, 'col'=>$order, 'dir'=>$dir, 'filter'=>$filtercond));        
+            $totalFiltered = count($totalFiltered);
 
         if(!empty($posts))
         {
             foreach ($posts as $post)
             {
-
+                $nestedData['nama_provinsi'] = $post->nama_provinsi;
                 $nestedData['no_kontrak'] = $post->no_kontrak;
                 $nestedData['nama_barang'] = $post->nama_barang;
+                $nestedData['merk'] = $post->merk;
                 $nestedData['penyedia'] = $post->nama_penyedia_provinsi;
-                $nestedData['kontrak'] = number_format($post->total_unit, 0);
-                $nestedData['alokasi'] = number_format($post->total_unit_alokasi, 0);
-                $nestedData['persen_alokasi'] = number_format(($post->total_unit == 0 ? 0 : ($post->total_unit_alokasi / $post->total_unit * 100)), 0)."%";
-                $nestedData['bapsthp'] = number_format($post->total_unit_bapsthp, 0);
-                $nestedData['persen_bapsthp'] = number_format(($post->total_unit_alokasi == 0 ? 0 : (($post->total_unit_bapsthp) / $post->total_unit_alokasi * 100)), 0)."%";
-                $nestedData['bastb'] = number_format($post->total_unit_bastb, 0);
-                $nestedData['persen_bastb'] = number_format(($post->total_unit_alokasi == 0 ? 0 : ($post->total_unit_bastb / $post->total_unit_alokasi * 100)), 0)."%";
+                $nestedData['alokasi'] = number_format($post->jumlah_barang, 0);
+                $nestedData['baphp'] = number_format($post->baphp_jumlah, 0);
+                $nestedData['persen_baphp'] = $post->jumlah_barang == 0 ? 0 : (($post->baphp_jumlah) / $post->jumlah_barang * 100);
+				if($nestedData['persen_baphp'] >= 100){
+                    $nestedData['persen_baphp'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp'],0).'%</a>';
+                }
+                $nestedData['bastb'] = number_format($post->bastb_jumlah, 0);
+                $nestedData['persen_bastb'] = $post->jumlah_barang == 0 ? 0 : (($post->bastb_jumlah) / $post->jumlah_barang * 100);
+				if($nestedData['persen_bastb'] >= 100){
+                    $nestedData['persen_bastb'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb'],0).'%</a>';
+                }
                 $data[] = $nestedData;
 
             }
@@ -120,16 +125,18 @@ class LaporanKontrakProvinsi extends CI_Controller {
 	public function AjaxGetDataNilai()
 	{
 		$columns = array( 
-            0 => 'no_kontrak', 
-            1 => 'nama_barang',
-            2 => 'nama_penyedia_provinsi',
-            3 => 'kontrak',
-            4 => 'alokasi',
-            5 => 'persen_alokasi',
-            6 => 'bapsthp',
-            7 => 'persen_bapsthp',
-            8 => 'bastb',
-            9 => 'persen_bastb'
+            0 => 'nama_provinsi', 
+            1 => 'no_kontrak', 
+            2 => 'nama_barang',
+            3 => 'merk',
+            4 => 'nama_penyedia_provinsi',
+            5 => 'kontrak',
+            6 => 'alokasi',
+            7 => 'persen_alokasi',
+            8 => 'baphp',
+            9 => 'persen_baphp',
+            10 => 'bastb',
+            11 => 'persen_bastb'
         );
 
 		$list_nama_barang = $this->input->post('barang');
@@ -147,43 +154,49 @@ class LaporanKontrakProvinsi extends CI_Controller {
             
         $totalFiltered = $totalData; 
 
-        //search data percolumn
+        
         $filtercond = '';
-        for($i=0;$i<count($columns);$i++){
-        	if(!empty($this->input->post('columns')[$i]['search']['value'])){
-        		$search = $this->input->post('columns')[$i]['search']['value'];
-        		$filtercond  .= " and ".$columns[$i]." LIKE '%".$search."%'"; 
-        	}	        	
+        if(!empty($list_id_provinsi)){
+            $id_provinsis = implode(',',$list_id_provinsi);
+            // var_dump($id_provinsis);exit();
+            $filtercond  .= " AND id_provinsi IN ($id_provinsis)";
         }
-
-		if(empty($this->input->post('search')['value']))
-        {            
-            $posts = $this->LaporanProvinsiModel->GetAllForAjaxKontrak($_POST['start'], $_POST['length'], $order, $dir, $filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-            $totalFiltered = $this->LaporanProvinsiModel->GetFilterAjaxCountKontrak($filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-        }
-        else {
-            $search = $this->input->post('search')['value']; 
-
-            $posts =  $this->LaporanProvinsiModel->GetSearchAjaxKontrak($_POST['start'], $_POST['length'], $search, $order, $dir, $filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-
-            $totalFiltered = $this->LaporanProvinsiModel->GetSearchAjaxCountKontrak($search, $filtercond, $list_nama_barang, $list_id_provinsi, $list_id_kabupaten);
-        }
+        $search = $this->input->post('search')['value'];
+        $search = " AND (nama_provinsi LIKE '%".$search."%'
+                        OR no_kontrak LIKE '%".$search."%'
+                        OR nama_barang LIKE '%".$search."%'
+                        OR merk LIKE '%".$search."%'
+                        OR nama_penyedia_provinsi LIKE '%".$search."%'
+                        )"; 
+                        
+            $posts =  $this->LaporanProvinsiModel->getKontrak(array('start'=>$_POST['start'], 'length'=>$_POST['length'], 'search'=>$search, 'col'=>$order, 'dir'=>$dir, 'filter'=>$filtercond));
+            $totalFiltered = $this->LaporanProvinsiModel->getKontrak(array('search'=>$search, 'col'=>$order, 'dir'=>$dir, 'filter'=>$filtercond));        
+            $totalFiltered = count($totalFiltered);
 
         if(!empty($posts))
         {
             foreach ($posts as $post)
             {
-
+                $nestedData['nama_provinsi_nilai'] = $post->nama_provinsi;
                 $nestedData['no_kontrak_nilai'] = $post->no_kontrak;
                 $nestedData['nama_barang_nilai'] = $post->nama_barang;
+                $nestedData['merk_nilai'] = $post->merk;
                 $nestedData['penyedia_nilai'] = $post->nama_penyedia_provinsi;
-                $nestedData['kontrak_nilai'] = number_format($post->total_nilai, 0);
-                $nestedData['alokasi_nilai'] = number_format($post->total_nilai_alokasi, 0);
-                $nestedData['persen_alokasi_nilai'] = number_format(($post->total_nilai == 0 ? 0 : ($post->total_nilai_alokasi / $post->total_nilai * 100)), 0)."%";
-                $nestedData['bapsthp_nilai'] = number_format($post->total_nilai_bapsthp, 0);
-                $nestedData['persen_bapsthp_nilai'] = number_format(($post->total_nilai_alokasi == 0 ? 0 : (($post->total_nilai_bapsthp) / $post->total_nilai_alokasi * 100)), 0)."%";
-                $nestedData['bastb_nilai'] = number_format($post->total_nilai_bastb, 0);
-                $nestedData['persen_bastb_nilai'] = number_format(($post->total_nilai_alokasi == 0 ? 0 : ($post->total_nilai_bastb / $post->total_nilai_alokasi * 100)), 0)."%";
+                $nestedData['alokasi_nilai'] = number_format($post->nilai_barang, 0);
+                $nestedData['baphp_nilai'] = number_format($post->baphp_nilai, 0);
+                $nestedData['persen_baphp_nilai'] = $post->nilai_barang == 0 ? 0 : (($post->baphp_nilai) / $post->nilai_barang * 100);
+				if($nestedData['persen_baphp_nilai'] >= 100){
+                    $nestedData['persen_baphp_nilai'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_nilai'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai'],0).'%</a>';
+                }
+                $nestedData['bastb_nilai'] = number_format($post->bastb_nilai, 0);
+                $nestedData['persen_bastb_nilai'] = $post->nilai_barang == 0 ? 0 : (($post->bastb_nilai) / $post->nilai_barang * 100);
+				if($nestedData['persen_bastb_nilai'] >= 100){
+                    $nestedData['persen_bastb_nilai'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_nilai'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai'],0).'%</a>';
+                }
                 $data[] = $nestedData;
 
             }

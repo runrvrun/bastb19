@@ -37,14 +37,21 @@ class LaporanKontrakPusat extends CI_Controller {
 		$columns = array( 
             0 => 'no_kontrak', 
             1 => 'nama_barang',
-            2 => 'nama_penyedia_pusat',
-            3 => 'kontrak',
-            4 => 'alokasi',
-            5 => 'persen_alokasi',
-            6 => 'bapsthp',
-            7 => 'persen_bapsthp',
-            8 => 'bastb',
-            9 => 'persen_bastb'
+            2 => 'merk',
+            3 => 'nama_penyedia_pusat',
+            4 => 'kontrak',
+            5 => 'alokasi_reguler',
+            6 => 'persen_alokasi_reguler',
+            7 => 'baphp_reguler',
+            8 => 'persen_baphp_reguler',
+            9 => 'bastb_reguler',
+            10 => 'persen_bastb_reguler',
+            11 => 'alokasi_persediaan',
+            12 => 'persen_alokasi_persediaan',
+            13 => 'baphp_persediaan',
+            14 => 'persen_baphp_persediaan',
+            15 => 'bastb_persediaan',
+            16 => 'persen_bastb_persediaan'
         );
 
 		$list_nama_barang = $this->input->post('barang');
@@ -91,14 +98,39 @@ class LaporanKontrakPusat extends CI_Controller {
 
                 $nestedData['no_kontrak'] = $post->no_kontrak;
                 $nestedData['nama_barang'] = $post->nama_barang;
+                $nestedData['merk'] = $post->merk;
                 $nestedData['penyedia'] = $post->nama_penyedia_pusat;
                 $nestedData['kontrak'] = number_format($post->total_unit, 0);
-                $nestedData['alokasi'] = number_format($post->total_unit_alokasi, 0);
-                $nestedData['persen_alokasi'] = number_format(($post->total_unit == 0 ? 0 : ($post->total_unit_alokasi / $post->total_unit * 100)), 0)."%";
-                $nestedData['bapsthp'] = number_format($post->total_unit_bapreg + $post->total_unit_bapcad, 0);
-                $nestedData['persen_bapsthp'] = number_format(($post->total_unit_alokasi == 0 ? 0 : (($post->total_unit_bapreg + $post->total_unit_bapcad) / $post->total_unit_alokasi * 100)), 0)."%";
-                $nestedData['bastb'] = number_format($post->total_unit_bastb, 0);
-                $nestedData['persen_bastb'] = number_format(($post->total_unit_alokasi == 0 ? 0 : ($post->total_unit_bastb / $post->total_unit_alokasi * 100)), 0)."%";
+                $nestedData['alokasi_reguler'] = number_format($post->total_unit_alokasi, 0);
+                $nestedData['baphp_reguler'] = number_format($post->total_unit_bapreg, 0);
+                $nestedData['persen_baphp_reguler'] = $post->total_unit_alokasi == 0 ? 0 : (($post->total_unit_bapreg) / $post->total_unit_alokasi * 100);
+                if($nestedData['persen_baphp_reguler'] >= 100){
+                    $nestedData['persen_baphp_reguler'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_reguler'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_reguler'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_reguler'],0).'%</a>';
+                }
+                $nestedData['bastb_reguler'] = number_format($post->total_unit_basreg, 0);
+                $nestedData['persen_bastb_reguler'] = $post->total_unit_alokasi == 0 ? 0 : ($post->total_unit_basreg / $post->total_unit_alokasi * 100);
+                if($nestedData['persen_bastb_reguler'] >= 100){
+                    $nestedData['persen_bastb_reguler'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_reguler'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_reguler'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_reguler'],0).'%</a>';
+                }
+                $nestedData['alokasi_persediaan'] = number_format($post->total_unit_alokasicad, 0);
+                $nestedData['baphp_persediaan'] = number_format($post->total_unit_bapcad, 0);
+                $nestedData['persen_baphp_persediaan'] = $post->total_unit_alokasicad == 0 ? 0 : (($post->total_unit_bapcad) / $post->total_unit_alokasicad * 100);
+                if($nestedData['persen_baphp_persediaan'] >= 100){
+                    $nestedData['persen_baphp_persediaan'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_persediaan'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_persediaan'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_persediaan'],0).'%</a>';
+                }
+                $nestedData['bastb_persediaan'] = number_format($post->total_unit_bascad, 0);
+                $nestedData['persen_bastb_persediaan'] = $post->total_unit_alokasicad == 0 ? 0 : ($post->total_unit_bascad / $post->total_unit_alokasicad * 100);
+                if($nestedData['persen_bastb_persediaan'] >= 100){
+                    $nestedData['persen_bastb_persediaan'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_persediaan'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_persediaan'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_persediaan'],0).'%</a>';
+                }
                 $data[] = $nestedData;
 
             }
@@ -122,14 +154,21 @@ class LaporanKontrakPusat extends CI_Controller {
 		$columns = array( 
             0 => 'no_kontrak', 
             1 => 'nama_barang',
-            2 => 'nama_penyedia_pusat',
-            3 => 'kontrak',
-            4 => 'alokasi',
-            5 => 'persen_alokasi',
-            6 => 'bapsthp',
-            7 => 'persen_bapsthp',
-            8 => 'bastb',
-            9 => 'persen_bastb'
+            2 => 'merk',
+            3 => 'nama_penyedia_pusat',
+            4 => 'kontrak',
+            5 => 'alokasi_reguler',
+            6 => 'persen_alokasi_reguler',
+            7 => 'baphp_reguler',
+            8 => 'persen_baphp_reguler',
+            9 => 'bastb_reguler',
+            10 => 'persen_bastb_reguler',
+            11 => 'alokasi_persediaan',
+            12 => 'persen_alokasi_persediaan',
+            13 => 'baphp_persediaan',
+            14 => 'persen_baphp_persediaan',
+            15 => 'bastb_persediaan',
+            16 => 'persen_bastb_persediaan'
         );
 
 		$list_nama_barang = $this->input->post('barang');
@@ -176,14 +215,39 @@ class LaporanKontrakPusat extends CI_Controller {
 
                 $nestedData['no_kontrak_nilai'] = $post->no_kontrak;
                 $nestedData['nama_barang_nilai'] = $post->nama_barang;
+                $nestedData['merk_nilai'] = $post->merk;
                 $nestedData['penyedia_nilai'] = $post->nama_penyedia_pusat;
                 $nestedData['kontrak_nilai'] = number_format($post->total_nilai, 0);
-                $nestedData['alokasi_nilai'] = number_format($post->total_nilai_alokasi, 0);
-                $nestedData['persen_alokasi_nilai'] = number_format(($post->total_nilai == 0 ? 0 : ($post->total_nilai_alokasi / $post->total_nilai * 100)), 0)."%";
-                $nestedData['bapsthp_nilai'] = number_format($post->total_nilai_bapreg + $post->total_nilai_bapcad, 0);
-                $nestedData['persen_bapsthp_nilai'] = number_format(($post->total_nilai_alokasi == 0 ? 0 : (($post->total_nilai_bapreg + $post->total_nilai_bapcad) / $post->total_nilai_alokasi * 100)), 0)."%";
-                $nestedData['bastb_nilai'] = number_format($post->total_nilai_bastb, 0);
-                $nestedData['persen_bastb_nilai'] = number_format(($post->total_nilai_alokasi == 0 ? 0 : ($post->total_nilai_bastb / $post->total_nilai_alokasi * 100)), 0)."%";
+                $nestedData['alokasi_nilai_reguler'] = number_format($post->total_nilai_alokasi, 0);
+                $nestedData['baphp_nilai_reguler'] = number_format($post->total_nilai_bapreg, 0);
+                $nestedData['persen_baphp_nilai_reguler'] = $post->total_nilai_alokasi == 0 ? 0 : ($post->total_nilai_bapreg) / $post->total_nilai_alokasi * 100;
+                if($nestedData['persen_baphp_nilai_reguler'] >= 100){
+                    $nestedData['persen_baphp_nilai_reguler'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai_reguler'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_nilai_reguler'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai_reguler'],0).'%</a>';
+                }
+                $nestedData['bastb_nilai_reguler'] = number_format($post->total_nilai_basreg, 0);
+                $nestedData['persen_bastb_nilai_reguler'] = $post->total_nilai_alokasi == 0 ? 0 : ($post->total_nilai_basreg / $post->total_nilai_alokasi * 100);
+                if($nestedData['persen_bastb_nilai_reguler'] >= 100){
+                    $nestedData['persen_bastb_nilai_reguler'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai_reguler'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_nilai_reguler'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai_reguler'],0).'%</a>';
+                }
+                $nestedData['alokasi_nilai_persediaan'] = number_format($post->total_nilai_alokasicad, 0);
+                $nestedData['baphp_nilai_persediaan'] = number_format($post->total_nilai_bapcad, 0);
+                $nestedData['persen_baphp_nilai_persediaan'] = $post->total_nilai_alokasicad == 0 ? 0 : ($post->total_nilai_bapcad) / $post->total_nilai_alokasicad * 100;
+                if($nestedData['persen_baphp_nilai_persediaan'] >= 100){
+                    $nestedData['persen_baphp_nilai_persediaan'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai_persediaan'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_nilai_persediaan'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai_persediaan'],0).'%</a>';
+                }
+                $nestedData['bastb_nilai_persediaan'] = number_format($post->total_nilai_bascad, 0);
+                $nestedData['persen_bastb_nilai_persediaan'] = $post->total_nilai_alokasicad == 0 ? 0 : ($post->total_nilai_bascad / $post->total_nilai_alokasicad * 100);
+                if($nestedData['persen_bastb_nilai_persediaan'] >= 100){
+                    $nestedData['persen_bastb_nilai_persediaan'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai_persediaan'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_nilai_persediaan'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai_persediaan'],0).'%</a>';
+                }                
                 $data[] = $nestedData;
 
             }

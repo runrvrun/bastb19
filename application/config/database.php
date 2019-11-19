@@ -97,10 +97,10 @@ $db['local'] = array(
 
 $db['live'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.81.213.107',
+	'hostname' => '159.65.143.148',
 	'username' => 'root',
-	'password' => 'pass-bastb19-2019',
-	'database' => 'bastb19',
+	'password' => 'pass-hitek-2807',
+	'database' => 'bastb',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

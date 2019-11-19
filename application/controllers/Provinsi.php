@@ -180,7 +180,44 @@ class Provinsi extends CI_Controller {
 
 		$this->ProvinsiModel->Delete($id);
 		$this->session->set_flashdata('info','Data deleted successfully.');
-		redirect('Provinsi');
+		redirect('Provinsi');	
+	}
+	
+	public function autofill()
+	{
+		$id = $this->session->userdata('logged_in')->id_provinsi;
+		$param['provinsi'] = $this->ProvinsiModel->Get($id);
+		$param['ddprovinsi'] = $this->ProvinsiModel->GetAll($id);
+
+		$this->load->library('parser');
+		$this->load->model('ProvinsiModel');
 		
+		$data = array(
+	        'title' => 'Data Provinsi',
+	        'content-path' => 'ADMINISTRATOR / DATA PROVINSI / UBAH DATA AUTOFILL',
+	        'content' => $this->load->view('provinsi-edit-autofill', $param, TRUE),
+		);
+		$this->parser->parse('default_template', $data);
+	}
+
+	public function update_autofill()
+	{
+		$id = $this->input->post('id');
+		$data = array(
+			'nama_dinas' => strtoupper($this->input->post('nama_dinas')),
+			'nama_penyerah' => strtoupper($this->input->post('nama_penyerah')),
+			'jabatan_penyerah' => strtoupper($this->input->post('jabatan_penyerah')),
+			'notelp_penyerah' => strtoupper($this->input->post('notelp_penyerah')),
+			'alamat_penyerah' => strtoupper($this->input->post('alamat_penyerah')),
+			'id_provinsi_penyerah' => strtoupper($this->input->post('id_provinsi_penyerah')),
+			'id_kabupaten_penyerah' => strtoupper($this->input->post('id_kabupaten_penyerah')),
+			'nama_mengetahui' => strtoupper($this->input->post('nama_mengetahui')),
+			'jabatan_mengetahui' => strtoupper($this->input->post('jabatan_mengetahui')),
+			'updated_by' => $this->session->userdata('logged_in')->id_pengguna,
+			'updated_at' => NOW,
+		);
+		$this->ProvinsiModel->Update($id, $data);
+		$this->session->set_flashdata('info','Data updated successfully.');
+		redirect('Home');
 	}
 }

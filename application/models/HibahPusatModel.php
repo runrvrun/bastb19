@@ -296,7 +296,7 @@
 		{
 			$this->db->delete('tb_hibah_pusat', array('id' => $id));
 			$qry =	"	
-					UPDATE tb_kontrak_detail_pusat set id_hibah_pusat = null
+					UPDATE tb_alokasi_pusat set id_hibah_pusat = null
 					where id_hibah_pusat = $id
 					 ";
 			$this->db->query($qry);
@@ -318,7 +318,7 @@
 			// if(isset($this->session->userdata('logged_in')->id_provinsi)){
 			// 	$qry .= "
 			// 		and id in(
-			// 			select id_kontrak_pusat from tb_kontrak_detail_pusat
+			// 			select id_kontrak_pusat from tb_alokasi_pusat
 			// 			where id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi."
 			// 		)
 			// 	";
@@ -327,7 +327,7 @@
 			// if(isset($this->session->userdata('logged_in')->id_kabupaten)){
 			// 	$qry .= "
 			// 		and id in(
-			// 			select id_kontrak_pusat from tb_kontrak_detail_pusat
+			// 			select id_kontrak_pusat from tb_alokasi_pusat
 			// 			where id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten."
 			// 		)
 			// 	";
@@ -356,7 +356,7 @@
 			// if(isset($this->session->userdata('logged_in')->id_provinsi)){
 			// 	$qry .= "
 			// 		and id in(
-			// 			select id_kontrak_pusat from tb_kontrak_detail_pusat
+			// 			select id_kontrak_pusat from tb_alokasi_pusat
 			// 			where id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi."
 			// 		)
 			// 	";
@@ -365,7 +365,7 @@
 			// if(isset($this->session->userdata('logged_in')->id_kabupaten)){
 			// 	$qry .= "
 			// 		and id in(
-			// 			select id_kontrak_pusat from tb_kontrak_detail_pusat
+			// 			select id_kontrak_pusat from tb_alokasi_pusat
 			// 			where id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten."
 			// 		)
 			// 	";
@@ -390,7 +390,7 @@
 			if(isset($this->session->userdata('logged_in')->id_provinsi)){
 				$qry .= "
 					and id in(
-						select id_kontrak_pusat from tb_kontrak_detail_pusat
+						select id_kontrak_pusat from tb_alokasi_pusat
 						where id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi."
 					)
 				";
@@ -399,7 +399,7 @@
 			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
 				$qry .= "
 					and id in(
-						select id_kontrak_pusat from tb_kontrak_detail_pusat
+						select id_kontrak_pusat from tb_alokasi_pusat
 						where id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten."
 					)
 				";
@@ -424,7 +424,7 @@
 			if(isset($this->session->userdata('logged_in')->id_provinsi)){
 				$qry .= "
 					and id in(
-						select id_kontrak_pusat from tb_kontrak_detail_pusat
+						select id_kontrak_pusat from tb_alokasi_pusat
 						where id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi."
 					)
 				";
@@ -433,7 +433,7 @@
 			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
 				$qry .= "
 					and id in(
-						select id_kontrak_pusat from tb_kontrak_detail_pusat
+						select id_kontrak_pusat from tb_alokasi_pusat
 						where id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten."
 					)
 				";

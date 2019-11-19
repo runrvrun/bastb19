@@ -6,28 +6,34 @@
 			parent::__construct();
 		}
 
-		function GetAll()
+		function GetAll($nofilter=0)
 		{
 			// $res = $this->db->get('tb_provinsi');
 			$qry = '
 					SELECT 
 						* FROM 
 					tb_provinsi
-
+					WHERE 1=1
 			';
-			if(isset($this->session->userdata('logged_in')->id_provinsi)){
-				$qry .= "
-					where id = ".$this->session->userdata('logged_in')->id_provinsi;
+			if(!$nofilter){
+				if(isset($this->session->userdata('logged_in')->id_provinsi)){
+					$qry .= "
+					and id = ".$this->session->userdata('logged_in')->id_provinsi;
+				}
+				// if($this->session->userdata('logged_in')->role_pengguna == 'ADMIN PROVINSI'){
+				// 	$qry .= "
+				// 		and id = ".$this->session->userdata('logged_in')->id_provinsi;
+				// }
+				if($this->session->userdata('logged_in')->role_pengguna == 'ADMIN KABUPATEN'){
+					$qry .= "
+					and id = ( SELECT id_provinsi from tb_kabupaten where id = ".$this->session->userdata('logged_in')->id_kabupaten." )";
+				}
+				if($this->session->userdata('logged_in')->role_pengguna == 'ADMIN PENYEDIA PROVINSI'){
+					$qry .= "
+					and id = ( select id_provinsi from tb_penyedia_provinsi where id = ".$this->session->userdata('logged_in')->id_penyedia_provinsi.")";
+				}
 			}
-			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
-				$qry .= "
-					where id = ( SELECT id_provinsi from tb_kabupaten where id = ".$this->session->userdata('logged_in')->id_kabupaten." )";
-			}
-			if(isset($this->session->userdata('logged_in')->id_penyedia_provinsi)){
-				$qry .= "
-					where id = ( select id_provinsi from tb_penyedia_provinsi where id = ".$this->session->userdata('logged_in')->id_penyedia_provinsi.")";
-			}
-
+					
 			$qry .= " order by nama_provinsi";
 
 			$res = $this->db->query($qry);

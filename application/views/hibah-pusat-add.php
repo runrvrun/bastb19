@@ -270,27 +270,13 @@
                 <td>".$alokasi_pusat[$i]->tahun_anggaran."</td>
                 <td>".$alokasi_pusat[$i]->no_kontrak."</td>
                 <td>".$alokasi_pusat[$i]->periode_mulai." s/d ".$alokasi_pusat[$i]->periode_selesai."</td>
-                <td>".$alokasi_pusat[$i]->jenis_barang."</td>
+                <td>".$alokasi_pusat[$i]->nama_barang."</td>
                 <td>".$alokasi_pusat[$i]->merk."</td>
                 <td>".$alokasi_pusat[$i]->nama_provinsi."</td>
                 <td>".$alokasi_pusat[$i]->nama_kabupaten."</td>";
-
-                if($alokasi_pusat[$i]->status_alokasi == 'DATA KONTRAK AWAL'){
-                  echo "<td>".number_format($alokasi_pusat[$i]->jumlah_barang_detail, 0)."</td>
-                        <td>".number_format($alokasi_pusat[$i]->nilai_barang_detail, 0)."</td>
-                        <td>".number_format(($alokasi_pusat[$i]->nilai_barang_detail/$alokasi_pusat[$i]->jumlah_barang_detail), 0)."</td>";
-                }
-                else if($alokasi_pusat[$i]->status_alokasi == 'DATA ADENDUM 1'){
-                  echo "<td>".number_format($alokasi_pusat[$i]->jumlah_barang_rev_1, 0)."</td>
-                        <td>".number_format($alokasi_pusat[$i]->nilai_barang_rev_1, 0)."</td>
-                        <td>".number_format(($alokasi_pusat[$i]->nilai_barang_rev_1/$alokasi_pusat[$i]->jumlah_barang_rev_1), 0)."</td>";
-                }
-                else if($alokasi_pusat[$i]->status_alokasi == 'DATA ADENDUM 2'){
-                  echo "<td>".number_format($alokasi_pusat[$i]->jumlah_barang_rev_2, 0)."</td>
-                        <td>".number_format($alokasi_pusat[$i]->nilai_barang_rev_2, 0)."</td>
-                        <td>".number_format(($alokasi_pusat[$i]->nilai_barang_rev_2/$alokasi_pusat[$i]->jumlah_barang_rev_2), 0)."</td>";
-                }
-
+          echo "<td>".number_format($alokasi_pusat[$i]->jumlah_barang_rev, 0)."</td>
+                <td>".number_format($alokasi_pusat[$i]->nilai_barang_rev, 0)."</td>
+                <td>".number_format(($alokasi_pusat[$i]->harga_satuan_rev), 0)."</td>";
         echo    "<td>".$alokasi_pusat[$i]->dinas."</td>
                 <td>".$alokasi_pusat[$i]->regcad."</td>";
 
@@ -377,7 +363,7 @@
     ],
     "ajax": {
         "type": "POST",
-        "url": '<?php echo base_url("AlokasiPusat/AjaxGetAllDataForHibah"); ?>',
+        "url": '<?php echo base_url("Alokasi_pusat/index_hibah_json"); ?>',
         "dataType": "json",
     },
     "fnDrawCallback": function( oSettings ) {
@@ -393,7 +379,7 @@
         { data: "merk" },
         { data: "nama_provinsi" },
         { data: "nama_kabupaten" },
-        { data: "alokasi" },
+        { data: "jumlah_barang" },
         { data: "nilai_barang" },
         { data: "harga_satuan" },
         { data: "dinas" },
@@ -426,9 +412,9 @@
       
       if(table.row(this).data()["status_rilis"] == 'BELUM'){
         var id = table.row(this).id();
-        // alert( 'Clicked row id '+id );
-        var unit = table.row(this).data()["alokasi"].replace(/\,/g,"");
+        var unit = table.row(this).data()["jumlah_barang"].replace(/\,/g,"");
         var nilai = table.row(this).data()["nilai_barang"].replace(/\,/g,"");
+        // alert( 'Clicked row id '+id );
         if($("#chk_"+id).is(":checked")){
           $("#chk_"+id).prop('checked', false);
           $("#"+id).css("background-color", "white");

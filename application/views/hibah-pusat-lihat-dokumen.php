@@ -3,7 +3,7 @@
     background-color: gray;
   }
 </style>
-<div style="width: 120%; margin-left: -50px; margin-top: -50px;">
+<div style="width: 120%; margin-left: -50px;">
   <button type="button" class="button button-circle" id="btnNaskahHibah" onclick="setActive(0);">
     NASKAH HIBAH
   </button>
@@ -61,8 +61,15 @@
       $("#btnLampNaskahHibah").css('background-color', 'gray');
       $("#btnLampBASTBMN").css('background-color', 'gray');
       $("#btnLampSuratPernyataan").css('background-color', 'gray');
-
-      PDFObject.embed("../../pdf_hibah/hibah_pusat/naskah_hibah/"+no_naskah_hibah+"_"+id_hibah+".pdf", "#embedPDF");
+      
+      url = "../../pdf_hibah/hibah_pusat/naskah_hibah/"+no_naskah_hibah+"_"+id_hibah+".pdf";
+      $.get(url)
+      .done(function() { 
+        PDFObject.embed(url, "#embedPDF");
+      }).fail(function() { 
+        PDFObject.embed("../../pdf_hibah/hibah_pusat/naskah_hibah/"+no_naskah_hibah+".pdf", "#embedPDF");
+      })
+      // PDFObject.embed("../../pdf_hibah/hibah_pusat/naskah_hibah/"+no_naskah_hibah+"_"+id_hibah+".pdf", "#embedPDF");
       $('#embedPDF').height(800);
     }
     if(id == 1){
@@ -73,7 +80,14 @@
       $("#btnLampBASTBMN").css('background-color', 'gray');
       $("#btnLampSuratPernyataan").css('background-color', 'gray');
 
-      PDFObject.embed("../../pdf_hibah/hibah_pusat/bast_bmn/"+no_bast_bmn+"_"+id_hibah+".pdf", "#embedPDF");
+      url = "../../pdf_hibah/hibah_pusat/bast_bmn/"+no_bast_bmn+"_"+id_hibah+".pdf";
+      $.get(url)
+      .done(function() { 
+        PDFObject.embed(url, "#embedPDF");
+      }).fail(function() { 
+        PDFObject.embed("../../pdf_hibah/hibah_pusat/bast_bmn/"+no_bast_bmn+".pdf", "#embedPDF");
+      })
+      // PDFObject.embed("../../pdf_hibah/hibah_pusat/bast_bmn/"+no_bast_bmn+"_"+id_hibah+".pdf", "#embedPDF");
       $('#embedPDF').height(800);
     }
     if(id == 2){
@@ -84,7 +98,14 @@
       $("#btnLampBASTBMN").css('background-color', 'gray');
       $("#btnLampSuratPernyataan").css('background-color', 'gray');
 
-      PDFObject.embed("../../pdf_hibah/hibah_pusat/surat_pernyataan/"+no_surat_pernyataan+"_"+id_hibah+".pdf", "#embedPDF");
+      url = "../../pdf_hibah/hibah_pusat/surat_pernyataan/"+no_surat_pernyataan+"_"+id_hibah+".pdf";
+      $.get(url)
+      .done(function() { 
+        PDFObject.embed(url, "#embedPDF");
+      }).fail(function() { 
+        PDFObject.embed("../../pdf_hibah/hibah_pusat/surat_pernyataan/"+no_surat_pernyataan+".pdf", "#embedPDF");
+      })
+      // PDFObject.embed("../../pdf_hibah/hibah_pusat/surat_pernyataan/"+no_surat_pernyataan+"_"+id_hibah+".pdf", "#embedPDF");
       $('#embedPDF').height(800);
     }
     if(id == 3){
@@ -95,7 +116,14 @@
       $("#btnLampBASTBMN").css('background-color', 'gray');
       $("#btnLampSuratPernyataan").css('background-color', 'gray');
 
-      PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_naskah_hibah/"+lamp_naskah_hibah+"_"+id_hibah+".pdf", "#embedPDF");
+      url = "../../pdf_hibah/hibah_pusat/lamp_naskah_hibah/"+lamp_naskah_hibah+"_"+id_hibah+".pdf";
+      $.get(url)
+      .done(function() { 
+        PDFObject.embed(url, "#embedPDF");
+      }).fail(function() { 
+        PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_naskah_hibah/"+lamp_naskah_hibah+".pdf", "#embedPDF");
+      })
+      // PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_naskah_hibah/"+lamp_naskah_hibah+"_"+id_hibah+".pdf", "#embedPDF");
       $('#embedPDF').height(800);
     }
     if(id == 4){
@@ -106,7 +134,14 @@
       $("#btnLampBASTBMN").css('background-color', 'green');
       $("#btnLampSuratPernyataan").css('background-color', 'gray');
 
-      PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_bast_bmn/"+lamp_bast_bmn+"_"+id_hibah+".pdf", "#embedPDF");
+      url = "../../pdf_hibah/hibah_pusat/lamp_bast_bmn/"+lamp_bast_bmn+"_"+id_hibah+".pdf";
+      $.get(url)
+      .done(function() { 
+        PDFObject.embed(url, "#embedPDF");
+      }).fail(function() { 
+        PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_bast_bmn/"+lamp_bast_bmn+".pdf", "#embedPDF");
+      })
+      // PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_bast_bmn/"+lamp_bast_bmn+"_"+id_hibah+".pdf", "#embedPDF");
       $('#embedPDF').height(800);
     }
     if(id == 5){
@@ -117,7 +152,14 @@
       $("#btnLampBASTBMN").css('background-color', 'gray');
       $("#btnLampSuratPernyataan").css('background-color', 'green');
 
-      PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_surat_pernyataan/"+lamp_surat_pernyataan+"_"+id_hibah+".pdf", "#embedPDF");
+      url = "../../pdf_hibah/hibah_pusat/lamp_surat_pernyataan/"+lamp_surat_pernyataan+"_"+id_hibah+".pdf";
+      $.get(url)
+      .done(function() { 
+        PDFObject.embed(url, "#embedPDF");
+      }).fail(function() { 
+        PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_surat_pernyataan/"+lamp_surat_pernyataan+".pdf", "#embedPDF");
+      })
+      // PDFObject.embed("../../pdf_hibah/hibah_pusat/lamp_surat_pernyataan/"+lamp_surat_pernyataan+"_"+id_hibah+".pdf", "#embedPDF");
       $('#embedPDF').height(800);
     }
   }

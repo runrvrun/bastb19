@@ -20,17 +20,17 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
-					dt.id_hibah_provinsi
-					
+					dt.id_hibah_provinsi					
 				FROM 
-				tb_kontrak_detail_provinsi dt 
+				tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 				LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -65,17 +65,17 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
-					dt.id_hibah_provinsi
-					
+					dt.id_hibah_provinsi					
 				FROM 
-				tb_kontrak_detail_provinsi dt 
+				tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 				LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -108,17 +108,18 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
 					dt.id_hibah_provinsi
 					
 				FROM 
-				tb_kontrak_detail_provinsi dt 
+				tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 				LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -163,17 +164,18 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
 					dt.id_hibah_provinsi
 					
 				FROM 
-				tb_kontrak_detail_provinsi dt 
+				tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 				LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -207,17 +209,18 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
 					dt.id_hibah_provinsi
 					
 				FROM 
-					tb_kontrak_detail_provinsi dt 
+					tb_alokasi_provinsi dt 
 					LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 					LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 					LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -256,17 +259,18 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
 					dt.id_hibah_provinsi
 					
 				FROM 
-					tb_kontrak_detail_provinsi dt 
+					tb_alokasi_provinsi dt 
 					LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 					LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 					LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -318,17 +322,18 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
 					dt.id_hibah_provinsi
 					
 				FROM 
-					tb_kontrak_detail_provinsi dt 
+					tb_alokasi_provinsi dt 
 					LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 					LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 					LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -365,17 +370,18 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
 					dt.id_hibah_provinsi
 					
 				FROM 
-					tb_kontrak_detail_provinsi dt 
+					tb_alokasi_provinsi dt 
 					LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 					LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 					LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -410,7 +416,7 @@
 			return $data;
 		}
 
-		function GetData($id_kontrak_detail)
+		function GetData($id_alokasi)
 		{
 			$qry =	"	
 				SELECT 
@@ -424,10 +430,11 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
@@ -435,7 +442,7 @@
 					barang.akun, barang.kode_barang, barang.jenis_barang
 					
 				FROM 
-					tb_kontrak_detail_provinsi dt 
+					tb_alokasi_provinsi dt 
 					LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 					LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 					LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -443,7 +450,7 @@
 					INNER JOIN tb_kabupaten k ON k.id = dt.`id_kabupaten`
 				WHERE 
 					dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI')
-					and dt.id = $id_kontrak_detail
+					and dt.id = $id_alokasi
 					and hd.`tahun_anggaran` = ".$this->session->userdata('logged_in')->tahun_pengadaan."
 				ORDER BY tahun_anggaran, hd.no_kontrak ";
 		
@@ -469,17 +476,18 @@
 					dt.id, dt.`id_kontrak_provinsi`, 
 					dt.`id_provinsi`, p.`nama_provinsi`,
 					dt.`id_kabupaten`, k.`nama_kabupaten`,
-					dt.`nilai_barang_detail`, dt.`jumlah_barang_detail`, 
+					dt.`nilai_barang`, dt.`jumlah_barang`, 
 					dt.`regcad`, dt.`dinas`,
 					dt.`no_adendum_1`, dt.`jumlah_barang_rev_1`, dt.`nilai_barang_rev_1`,
 					dt.`no_adendum_2`, dt.`jumlah_barang_rev_2`, dt.`nilai_barang_rev_2`,
+					dt.`no_adendum_3`, dt.`jumlah_barang_rev_3`, dt.`nilai_barang_rev_3`,
 					dt.`nama_file_adendum_1`, dt.`nama_file_adendum_2`,
 					dt.`status_alokasi`, dt.nama_file, 
 					pen.`nama_penyedia_provinsi`,
 					dt.id_hibah_provinsi,
 					barang.akun, barang.kode_barang, barang.jenis_barang
 				FROM 
-					tb_kontrak_detail_provinsi dt 
+					tb_alokasi_provinsi dt 
 					LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 					LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 					LEFT JOIN `tb_penyedia_provinsi` pen ON pen.`id` = hd.`id_penyedia_provinsi`
@@ -507,19 +515,23 @@
 						dt.jumlah_barang_rev_1
 					WHEN dt.status_alokasi = 'DATA ADENDUM 2' THEN
 						dt.jumlah_barang_rev_2
+					WHEN dt.status_alokasi = 'DATA ADENDUM 3' THEN
+						dt.jumlah_barang_rev_3
 					ELSE
-						dt.jumlah_barang_detail
+						dt.jumlah_barang
 					END) AS total_unit,
 					SUM(CASE 	
 					WHEN dt.status_alokasi = 'DATA ADENDUM 1' THEN
 						dt.nilai_barang_rev_1
 					WHEN dt.status_alokasi = 'DATA ADENDUM 2' THEN
 						dt.nilai_barang_rev_2
+					WHEN dt.status_alokasi = 'DATA ADENDUM 3' THEN
+						dt.nilai_barang_rev_3
 					ELSE
-						dt.nilai_barang_detail
+						dt.nilai_barang
 					END) AS total_nilai
 					FROM
-					tb_kontrak_detail_provinsi dt
+					tb_alokasi_provinsi dt
 					LEFT JOIN tb_kontrak_provinsi hd ON dt.`id_kontrak_provinsi` = hd.`id`
 					LEFT JOIN `tb_jenis_barang_provinsi` barang ON barang.`nama_barang` = hd.`nama_barang` AND barang.`merk` = hd.`merk` and barang.id_provinsi = hd.id_provinsi and barang.id_penyedia_provinsi = hd.id_penyedia_provinsi
 					WHERE dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI')
@@ -545,10 +557,12 @@
 							SUM(dt.jumlah_barang_rev_1)
 						WHEN dt.status_alokasi = 'DATA ADENDUM 2' THEN
 							SUM(dt.jumlah_barang_rev_2)
+						WHEN dt.status_alokasi = 'DATA ADENDUM 3' THEN
+							SUM(dt.jumlah_barang_rev_3)
 						ELSE
-							SUM(dt.jumlah_barang_detail)
+							SUM(dt.jumlah_barang)
 						END) AS total_temp
-				FROM tb_kontrak_detail_provinsi dt 
+				FROM tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				WHERE 
 					dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI')
@@ -575,10 +589,12 @@
 							SUM(dt.nilai_barang_rev_1)
 						WHEN dt.status_alokasi = 'DATA ADENDUM 2' THEN
 							SUM(dt.nilai_barang_rev_2)
+						WHEN dt.status_alokasi = 'DATA ADENDUM 3' THEN
+							SUM(dt.nilai_barang_rev_3)
 						ELSE
-							SUM(dt.nilai_barang_detail)
+							SUM(dt.nilai_barang)
 						END) AS total_temp
-				FROM tb_kontrak_detail_provinsi dt 
+				FROM tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				WHERE 
 					dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI')
@@ -596,7 +612,7 @@
 				return array();
 		}
 
-		function GetUnit($id_kontrak_detail)
+		function GetUnit($id_alokasi)
 		{
 			$qry =	"	
 				SELECT SUM(total_temp) AS total FROM (
@@ -605,14 +621,16 @@
 							SUM(dt.jumlah_barang_rev_1)
 						WHEN dt.status_alokasi = 'DATA ADENDUM 2' THEN
 							SUM(dt.jumlah_barang_rev_2)
+						WHEN dt.status_alokasi = 'DATA ADENDUM 3' THEN
+							SUM(dt.jumlah_barang_rev_3)
 						ELSE
-							SUM(dt.jumlah_barang_detail)
+							SUM(dt.jumlah_barang)
 						END) AS total_temp
-				FROM tb_kontrak_detail_provinsi dt 
+				FROM tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				WHERE 
 					dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI')
-					and dt.id = $id_kontrak_detail
+					and dt.id = $id_alokasi
 					and hd.`tahun_anggaran` = ".$this->session->userdata('logged_in')->tahun_pengadaan."
 					".(isset($this->session->userdata('logged_in')->id_penyedia_provinsi) ? " and hd.id_penyedia_provinsi = ".$this->session->userdata('logged_in')->id_penyedia_provinsi : "")."
 					".(isset($this->session->userdata('logged_in')->id_provinsi) ? " and dt.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi : "")."
@@ -627,7 +645,7 @@
 				return array();
 		}
 
-		function GetNilai($id_kontrak_detail)
+		function GetNilai($id_alokasi)
 		{
 			$qry =	"	
 				SELECT SUM(total_temp) AS total FROM (
@@ -636,14 +654,16 @@
 							SUM(dt.nilai_barang_rev_1)
 						WHEN dt.status_alokasi = 'DATA ADENDUM 2' THEN
 							SUM(dt.nilai_barang_rev_2)
+						WHEN dt.status_alokasi = 'DATA ADENDUM 3' THEN
+							SUM(dt.nilai_barang_rev_3)
 						ELSE
-							SUM(dt.nilai_barang_detail)
+							SUM(dt.nilai_barang)
 						END) AS total_temp
-				FROM tb_kontrak_detail_provinsi dt 
+				FROM tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				WHERE 
 					dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI')
-					and dt.id = $id_kontrak_detail
+					and dt.id = $id_alokasi
 					and hd.`tahun_anggaran` = ".$this->session->userdata('logged_in')->tahun_pengadaan."
 					".(isset($this->session->userdata('logged_in')->id_penyedia_provinsi) ? " and hd.id_penyedia_provinsi = ".$this->session->userdata('logged_in')->id_penyedia_provinsi : "")."
 					".(isset($this->session->userdata('logged_in')->id_provinsi) ? " and dt.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi : "")."
@@ -662,7 +682,7 @@
 		{
 			$qry =	"	
 				SELECT COUNT(DISTINCT dt.id_kontrak_provinsi) AS total 
-				FROM tb_kontrak_detail_provinsi dt 
+				FROM tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				WHERE 
 					dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI') 
@@ -683,7 +703,7 @@
 		{
 			$qry =	"	
 				SELECT COUNT(DISTINCT merk) AS total 
-				FROM tb_kontrak_detail_provinsi dt 
+				FROM tb_alokasi_provinsi dt 
 				LEFT JOIN tb_kontrak_provinsi hd ON hd.id = dt.id_kontrak_provinsi
 				WHERE 
 					dt.`status_alokasi` NOT IN ('MENUNGGU KONFIRMASI')
@@ -700,11 +720,11 @@
 				return array();
 		}
 
-		function UpdateHibahId($id_kontrak_detail, $id_hibah)
+		function UpdateHibahId($id_alokasi, $id_hibah)
 		{
 			$qry =	"	
-				UPDATE tb_kontrak_detail_provinsi SET id_hibah_provinsi = $id_hibah
-				WHERE id = $id_kontrak_detail";
+				UPDATE tb_alokasi_provinsi SET id_hibah_provinsi = $id_hibah
+				WHERE id = $id_alokasi";
 	
 			$this->db->query($qry);
 		}

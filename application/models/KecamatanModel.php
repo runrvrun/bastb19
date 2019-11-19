@@ -27,6 +27,10 @@
 				$qry .= "
 					where kec.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi;
 			}
+			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
+				$qry .= "
+					and kec.id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten;
+			}
 			
 			$res = $this->db->query($qry);
 
@@ -48,10 +52,13 @@
 					LEFT JOIN tb_kabupaten kab ON kab.id = kec.id_kabupaten
 					LEFT JOIN tb_provinsi prov ON prov.id = kec.id_provinsi
 			';
-
 			if(isset($this->session->userdata('logged_in')->id_provinsi)){
 				$qry .= "
 					where kec.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi;
+			}
+			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
+				$qry .= "
+					and kec.id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten;
 			}
 			
 			$res = $this->db->query($qry);
@@ -79,6 +86,10 @@
 				$qry .= "
 					and kec.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi;
 			}
+			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
+				$qry .= "
+					and kec.id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten;
+			}
 			$qry .= $filter;
 			
 			$res = $this->db->query($qry);
@@ -102,6 +113,10 @@
 				$qry .= "
 					and kec.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi;
 			}
+			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
+				$qry .= "
+					and kec.id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten;
+			}
 			$qry .= $filter;
 			
 			$res = $this->db->query($qry);
@@ -124,6 +139,10 @@
 			if(isset($this->session->userdata('logged_in')->id_provinsi)){
 				$qry .= "
 					and kec.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi;
+			}
+			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
+				$qry .= "
+					and kec.id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten;
 			}
 
 			$qry .= $filter;
@@ -160,6 +179,10 @@
 			if(isset($this->session->userdata('logged_in')->id_provinsi)){
 				$qry .= "
 					and kec.id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi;
+			}
+			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
+				$qry .= "
+					and kec.id_kabupaten = ".$this->session->userdata('logged_in')->id_kabupaten;
 			}
 
 			$qry .= $filter;

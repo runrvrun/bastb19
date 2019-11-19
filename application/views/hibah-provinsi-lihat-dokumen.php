@@ -3,7 +3,7 @@
     background-color: gray;
   }
 </style>
-<div style="width: 120%; margin-left: -50px; margin-top: -50px;">
+<div style="width: 120%; margin-left: -50px;">
   <button type="button" class="button button-circle" id="btnNaskahHibah" onclick="setActive(0);">
     NASKAH HIBAH
   </button>

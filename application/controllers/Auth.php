@@ -26,7 +26,6 @@ class Auth extends CI_Controller {
 	{
 		$userlogin = $this->input->post('Username');
 		$password = $this->input->post('Password');
-
 		$tahun_pengadaan = $this->input->post('tahun_pengadaan');
 
 		if($userlogin == '' or $password == ''){
@@ -47,12 +46,32 @@ class Auth extends CI_Controller {
 				$userlogin = (object)$userlogin;
 
          		$this->session->set_userdata('logged_in', $userlogin);
-         		// print_r($this->session->userdata('logged_in'));
-         		// exit(1);
+				 // autofill
+				//  var_dump($userlogin);exit();
+				 if($userlogin->role_pengguna == 'ADMIN PENYEDIA PUSAT'){
+					$this->load->model('PenyediaPusatModel');
+					$autofill = $this->PenyediaPusatModel->Get($userlogin->id_penyedia_pusat);
+					$this->session->set_userdata('autofill', $autofill);
+				 }
+				 if($userlogin->role_pengguna == 'ADMIN PENYEDIA PROVINSI'){
+					$this->load->model('PenyediaProvinsiModel');
+					$autofill = $this->PenyediaProvinsiModel->Get($userlogin->id_penyedia_provinsi);
+					$this->session->set_userdata('autofill', $autofill);
+				}
+				 if($userlogin->role_pengguna == 'ADMIN PROVINSI'){
+					$this->load->model('ProvinsiModel');
+					$autofill = $this->ProvinsiModel->Get($userlogin->id_provinsi);
+					$this->session->set_userdata('autofill', $autofill);
+				}
+				 if($userlogin->role_pengguna == 'ADMIN KABUPATEN'){
+					$this->load->model('KabupatenModel');
+					$autofill = $this->KabupatenModel->Get($userlogin->id_kabupaten);
+					$this->session->set_userdata('autofill', $autofill);
+				}
 
          		// update terakhir login
          		$data = array(
-         				"last_login" => NOW,
+         			"last_login" => NOW,
          		);
 
          		if($this->input->post('Username') != 'superadmin')

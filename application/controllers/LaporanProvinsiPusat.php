@@ -40,41 +40,41 @@ class LaporanProvinsiPusat extends CI_Controller {
 
 		$count_kontrak = $this->LaporanPusatModel->GetTotalKontrak($tahun_anggaran, $list_id_provinsi, $list_id_kabupaten, $list_id_penyedia);
 		$count_barang = $this->LaporanPusatModel->GetTotalBarang($tahun_anggaran, $list_id_provinsi, $list_id_kabupaten, $list_id_penyedia);
-		$count_bapsthp = 0;
+		$count_baphp = 0;
 		$count_bastb = 0;
 
 		$sum_unit_kontrak = $this->LaporanPusatModel->GetTotalUnitKontrak($tahun_anggaran, $list_id_provinsi, $list_id_kabupaten, $list_id_penyedia);
 		$sum_unit_alokasi = $this->LaporanPusatModel->GetTotalUnitAlokasi($tahun_anggaran, $list_id_provinsi, $list_id_kabupaten, $list_id_penyedia);
-		$sum_unit_bapsthp = 0;
+		$sum_unit_baphp = 0;
 		$sum_unit_bastb = 0;
 
 		$sum_nilai_kontrak = $this->LaporanPusatModel->GetTotalNilaiKontrak($tahun_anggaran, $list_id_provinsi, $list_id_kabupaten, $list_id_penyedia);
 		$sum_nilai_alokasi = $this->LaporanPusatModel->GetTotalNilaiAlokasi($tahun_anggaran, $list_id_provinsi, $list_id_kabupaten, $list_id_penyedia);
-		$sum_nilai_bapsthp = 0;
+		$sum_nilai_baphp = 0;
 		$sum_nilai_bastb = 0;
 
 		$data = array(
 			"count_kontrak" => number_format($count_kontrak, 0),
 			"count_barang" => number_format($count_barang, 0),
-			"count_bapsthp" => number_format($count_bapsthp, 0),
+			"count_baphp" => number_format($count_baphp, 0),
 			"count_bastb" => number_format($count_bastb, 0),
 
 			"sum_unit_kontrak" => number_format($sum_unit_kontrak, 0),
 			"sum_unit_alokasi" => number_format($sum_unit_alokasi, 0),
-			"sum_unit_bapsthp" => number_format($sum_unit_bapsthp, 0),
+			"sum_unit_baphp" => number_format($sum_unit_baphp, 0),
 			"sum_unit_bastb" => number_format($sum_unit_bastb, 0),
 
 			"sum_nilai_kontrak" => number_format($sum_nilai_kontrak, 0),
 			"sum_nilai_alokasi" => number_format($sum_nilai_alokasi, 0),
-			"sum_nilai_bapsthp" => number_format($sum_nilai_bapsthp, 0),
+			"sum_nilai_baphp" => number_format($sum_nilai_baphp, 0),
 			"sum_nilai_bastb" => number_format($sum_nilai_bastb, 0),
 
 			"persen_unit_alokasi" => number_format(($sum_unit_kontrak == 0 ? 0 : ($sum_unit_alokasi / $sum_unit_kontrak * 100)), 0),
-			"persen_unit_bapsthp" => number_format(($sum_unit_alokasi == 0 ? 0 : ($sum_unit_bapsthp / $sum_unit_alokasi * 100)), 0),
+			"persen_unit_baphp" => number_format(($sum_unit_alokasi == 0 ? 0 : ($sum_unit_baphp / $sum_unit_alokasi * 100)), 0),
 			"persen_unit_bastb" => number_format(($sum_unit_alokasi == 0 ? 0 : ($sum_unit_bastb / $sum_unit_alokasi * 100)), 0),
 
 			"persen_nilai_alokasi" => number_format(($sum_nilai_kontrak == 0 ? 0 : ($sum_nilai_alokasi / $sum_nilai_kontrak * 100)), 0),
-			"persen_nilai_bapsthp" => number_format(($sum_nilai_alokasi == 0 ? 0 : ($sum_nilai_bapsthp / $sum_nilai_alokasi * 100)), 0),
+			"persen_nilai_baphp" => number_format(($sum_nilai_alokasi == 0 ? 0 : ($sum_nilai_baphp / $sum_nilai_alokasi * 100)), 0),
 			"persen_nilai_bastb" => number_format(($sum_nilai_alokasi == 0 ? 0 : ($sum_nilai_bastb / $sum_nilai_alokasi * 100)), 0),
 		);
 
@@ -92,24 +92,25 @@ class LaporanProvinsiPusat extends CI_Controller {
             1 => 'kontrak',
             2 => 'alokasi',
             3 => 'persen_alokasi',
-            4 => 'bapsthp',
-            5 => 'persen_bapsthp',
+            4 => 'baphp',
+            5 => 'persen_baphp',
             6 => 'bastb',
-            7 => 'persen_bastb'
+            7 => 'persen_bastb',
+            8 => 'alokasicad',
+            9 => 'persen_alokasicad',
+            10 => 'baphpcad',
+            11 => 'persen_baphpcad',
+            12 => 'bastbcad',
+            13 => 'persen_bastbcad'
         );
 
-		$list_nama_barang = $this->input->post('barang');
-		// foreach($list_nama_barang as $barang){
-		// 	echo $barang;
-		// }
-		// exit(1);
-
+        $list_nama_barang = $this->input->post('barang');
+        
         $order = $columns[$this->input->post('order')[0]['column']];
         $dir = $this->input->post('order')[0]['dir'];
 
-		$totalData = $this->LaporanPusatModel->GetAllAjaxCountProvUnit($list_nama_barang);
-            
-        $totalFiltered = $totalData; 
+		$totalData = $this->LaporanPusatModel->getProvinsi();            
+        $totalData = count($totalData); 
 
         //search data percolumn
         $filtercond = '';
@@ -119,19 +120,13 @@ class LaporanProvinsiPusat extends CI_Controller {
         		$filtercond  .= " and ".$columns[$i]." LIKE '%".$search."%'"; 
         	}	        	
         }
-
-		if(empty($this->input->post('search')['value']))
-        {            
-            $posts = $this->LaporanPusatModel->GetAllForAjaxProvUnit($_POST['start'], $_POST['length'], $order, $dir, $filtercond, $list_nama_barang);
-            $totalFiltered = $this->LaporanPusatModel->GetFilterAjaxCountProvUnit($filtercond, $list_nama_barang);
+        $search = $this->input->post('search')['value']; 
+        if(!empty($search)){
+            $search = " and nama_provinsi LIKE '%".$search."%'"; 
         }
-        else {
-            $search = $this->input->post('search')['value']; 
-
-            $posts =  $this->LaporanPusatModel->GetSearchAjaxProvUnit($_POST['start'], $_POST['length'], $search, $order, $dir, $filtercond, $list_nama_barang);
-
-            $totalFiltered = $this->LaporanPusatModel->GetSearchAjaxCountProvUnit($search, $filtercond, $list_nama_barang);
-        }
+        $posts =  $this->LaporanPusatModel->getProvinsi(array('start'=>$_POST['start'], 'length'=>$_POST['length'], 'search'=>$search, 'col'=>$order, 'dir'=>$dir, 'filter'=>$filtercond));
+        $totalFiltered =  $this->LaporanPusatModel->getProvinsi(array('search'=>$search, 'col'=>$order, 'dir'=>$dir, 'filter'=>$filtercond));
+        $totalFiltered = count($totalFiltered);
 
         if(!empty($posts))
         {
@@ -139,15 +134,37 @@ class LaporanProvinsiPusat extends CI_Controller {
             {
 
                 $nestedData['provinsi'] = $post->nama_provinsi;
-                $nestedData['kontrak'] = number_format($post->total_unit, 0);
-                $nestedData['alokasi'] = number_format($post->total_unit_alokasi, 0);
-                $nestedData['persen_alokasi'] = number_format(($post->total_unit == 0 ? 0 : ($post->total_unit_alokasi / $post->total_unit * 100)), 0)."%";
-                $nestedData['bapsthp'] = number_format($post->total_unit_bapreg + $post->total_unit_bapcad, 0);
-                $nestedData['persen_bapsthp'] = number_format(($post->total_unit_alokasi == 0 ? 0 : (($post->total_unit_bapreg + $post->total_unit_bapcad) / $post->total_unit_alokasi * 100)), 0)."%";
-                $nestedData['bastb'] = number_format($post->total_unit_bastb, 0);
-                $nestedData['persen_bastb'] = number_format(($post->total_unit_alokasi == 0 ? 0 : ($post->total_unit_bastb / $post->total_unit_alokasi * 100)), 0)."%";
+                $nestedData['alokasi'] = number_format($post->alokasi_reguler, 0);
+                $nestedData['baphp'] = number_format($post->baphp_reguler, 0);
+                $nestedData['persen_baphp'] = $post->alokasi_reguler == 0 ? 0 : (($post->baphp_reguler) / $post->alokasi_reguler * 100);
+				if($nestedData['persen_baphp'] >= 100){
+                    $nestedData['persen_baphp'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp'],0).'%</a>';
+                }    
+				$nestedData['bastb'] = number_format($post->bastb_reguler, 0);
+                $nestedData['persen_bastb'] = $post->alokasi_reguler == 0 ? 0 : ($post->bastb_reguler / $post->alokasi_reguler * 100);
+                if($nestedData['persen_bastb'] >= 100){
+                    $nestedData['persen_bastb'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb'],0).'%</a>';
+				}
+				$nestedData['alokasi_persediaan'] = number_format($post->alokasi_persediaan, 0);
+                $nestedData['baphp_persediaan'] = number_format($post->baphp_persediaan, 0);
+                $nestedData['persen_baphp_persediaan'] = $post->alokasi_persediaan == 0 ? 0 : ($post->baphp_persediaan / $post->alokasi_persediaan * 100);
+				if($nestedData['persen_baphp_persediaan'] >= 100){
+                    $nestedData['persen_baphp_persediaan'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_persediaan'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_persediaan'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_persediaan'],0).'%</a>';
+                }    
+				$nestedData['bastb_persediaan'] = number_format($post->bastb_persediaan, 0);
+                $nestedData['persen_bastb_persediaan'] = $post->alokasi_persediaan == 0 ? 0 : ($post->bastb_persediaan / $post->alokasi_persediaan * 100);
+                if($nestedData['persen_bastb_persediaan'] >= 100){
+                    $nestedData['persen_bastb_persediaan'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_persediaan'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_persediaan'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_persediaan'],0).'%</a>';
+                }
                 $data[] = $nestedData;
-
             }
         }
         else{
@@ -171,24 +188,25 @@ class LaporanProvinsiPusat extends CI_Controller {
             1 => 'kontrak',
             2 => 'alokasi',
             3 => 'persen_alokasi',
-            4 => 'bapsthp',
-            5 => 'persen_bapsthp',
+            4 => 'baphp',
+            5 => 'persen_baphp',
             6 => 'bastb',
-            7 => 'persen_bastb'
+            7 => 'persen_bastb',
+            8 => 'alokasicad',
+            9 => 'persen_alokasicad',
+            10 => 'baphpcad',
+            11 => 'persen_baphpcad',
+            12 => 'bastbcad',
+            13 => 'persen_bastbcad'
         );
 
 		$list_nama_barang = $this->input->post('barang');
-		// foreach($list_nama_barang as $barang){
-		// 	echo $barang;
-		// }
-		// exit(1);
 
         $order = $columns[$this->input->post('order')[0]['column']];
         $dir = $this->input->post('order')[0]['dir'];
 
-		$totalData = $this->LaporanPusatModel->GetAllAjaxCountProvUnit($list_nama_barang);
-            
-        $totalFiltered = $totalData; 
+		$totalData = $this->LaporanPusatModel->getProvinsi();            
+        $totalFiltered = count($totalData); 
 
         //search data percolumn
         $filtercond = '';
@@ -199,18 +217,12 @@ class LaporanProvinsiPusat extends CI_Controller {
         	}	        	
         }
 
-		if(empty($this->input->post('search')['value']))
-        {            
-            $posts = $this->LaporanPusatModel->GetAllForAjaxProvUnit($_POST['start'], $_POST['length'], $order, $dir, $filtercond, $list_nama_barang);
-            $totalFiltered = $this->LaporanPusatModel->GetFilterAjaxCountProvUnit($filtercond, $list_nama_barang);
+        $search = $this->input->post('search')['value']; 
+        if(!empty($search)){
+            $search = " and nama_provinsi LIKE '%".$search."%'"; 
         }
-        else {
-            $search = $this->input->post('search')['value']; 
-
-            $posts =  $this->LaporanPusatModel->GetSearchAjaxProvUnit($_POST['start'], $_POST['length'], $search, $order, $dir, $filtercond, $list_nama_barang);
-
-            $totalFiltered = $this->LaporanPusatModel->GetSearchAjaxCountProvUnit($search, $filtercond, $list_nama_barang);
-        }
+        $posts =  $this->LaporanPusatModel->getProvinsi(array('start'=>$_POST['start'], 'length'=>$_POST['length'], 'search'=>$search, 'col'=>$order, 'dir'=>$dir, 'filter'=>$filtercond));
+        $totalFiltered = count($posts);
 
         if(!empty($posts))
         {
@@ -218,15 +230,37 @@ class LaporanProvinsiPusat extends CI_Controller {
             {
 
                 $nestedData['provinsi_nilai'] = $post->nama_provinsi;
-                $nestedData['kontrak_nilai'] = number_format($post->total_nilai, 0);
-                $nestedData['alokasi_nilai'] = number_format($post->total_nilai_alokasi, 0);
-                $nestedData['persen_alokasi_nilai'] = number_format(($post->total_nilai == 0 ? 0 : ($post->total_nilai_alokasi / $post->total_nilai * 100)), 0)."%";
-                $nestedData['bapsthp_nilai'] = number_format($post->total_nilai_bapreg + $post->total_nilai_bapcad, 0);
-                $nestedData['persen_bapsthp_nilai'] = number_format(($post->total_nilai_alokasi == 0 ? 0 : (($post->total_nilai_bapreg + $post->total_nilai_bapcad) / $post->total_nilai_alokasi * 100)), 0)."%";
-                $nestedData['bastb_nilai'] = number_format($post->total_nilai_bastb, 0);
-                $nestedData['persen_bastb_nilai'] = number_format(($post->total_nilai_alokasi == 0 ? 0 : ($post->total_nilai_bastb / $post->total_nilai_alokasi * 100)), 0)."%";
+                $nestedData['alokasi_nilai'] = number_format($post->alokasi_reguler_nilai, 0);
+                $nestedData['baphp_nilai'] = number_format($post->baphp_reguler_nilai, 0);
+                $nestedData['persen_baphp_nilai'] = $post->alokasi_reguler_nilai == 0 ? 0 : (($post->baphp_reguler_nilai) / $post->alokasi_reguler_nilai * 100);
+				if($nestedData['persen_baphp_nilai'] >= 100){
+                    $nestedData['persen_baphp_nilai'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_nilai'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_nilai'],0).'%</a>';
+                }    
+				$nestedData['bastb_nilai'] = number_format($post->bastb_reguler_nilai, 0);
+                $nestedData['persen_bastb_nilai'] = $post->alokasi_reguler_nilai == 0 ? 0 : ($post->bastb_reguler_nilai / $post->alokasi_reguler_nilai * 100);
+                if($nestedData['persen_bastb_nilai'] >= 100){
+                    $nestedData['persen_bastb_nilai'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_nilai'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_nilai'],0).'%</a>';
+				}
+				$nestedData['alokasi_persediaan_nilai'] = number_format($post->alokasi_persediaan_nilai, 0);
+                $nestedData['baphp_persediaan_nilai'] = number_format($post->baphp_persediaan_nilai, 0);
+                $nestedData['persen_baphp_persediaan_nilai'] = $post->alokasi_persediaan_nilai == 0 ? 0 : ($post->baphp_persediaan_nilai / $post->alokasi_persediaan_nilai * 100);
+				if($nestedData['persen_baphp_persediaan_nilai'] >= 100){
+                    $nestedData['persen_baphp_persediaan_nilai'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_baphp_persediaan_nilai'],0).'%</a>';
+                }else{
+                    $nestedData['persen_baphp_persediaan_nilai'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphp_persediaan_nilai'],0).'%</a>';
+                }    
+				$nestedData['bastb_persediaan_nilai'] = number_format($post->bastb_persediaan_nilai, 0);
+                $nestedData['persen_bastb_persediaan_nilai'] = $post->alokasi_persediaan_nilai == 0 ? 0 : ($post->bastb_persediaan_nilai / $post->alokasi_persediaan_nilai * 100);
+                if($nestedData['persen_bastb_persediaan_nilai'] >= 100){
+                    $nestedData['persen_bastb_persediaan_nilai'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastb_persediaan_nilai'],0).'%</a>';
+                }else{
+                    $nestedData['persen_bastb_persediaan_nilai'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_bastb_persediaan_nilai'],0).'%</a>';
+                }
                 $data[] = $nestedData;
-
             }
         }
         else{

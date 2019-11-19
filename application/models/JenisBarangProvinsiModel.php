@@ -281,9 +281,11 @@
 
 		function GetMerkByNamaBarang($id_penyedia_provinsi, $namabarang)
 		{
-			
+			// echo $namabarang;exit();			
+			$namabarang = str_replace("'","\'",$namabarang);
+			$namabarang = str_replace('"','\"',$namabarang);
 			if($id_penyedia_provinsi == 'all'){
-				$qry =	"	select distinct merk from tb_jenis_barang_provinsi
+				$qry =	"select distinct merk from tb_jenis_barang_provinsi
 					where nama_barang = '$namabarang'";
 			}
 			else{
@@ -301,7 +303,7 @@
 			}
 
 			$qry .= " order by merk";
-
+			// echo $qry;exit();
 			$res = $this->db->query($qry);
 
 			if($res->num_rows() > 0)
@@ -312,9 +314,10 @@
 
 		function GetMerkByProvinsi($id_provinsi, $namabarang)
 		{
+			$namabarang = str_replace("'","\'",$namabarang);
+			$namabarang = str_replace('"','\"',$namabarang);
 			
-			
-			$qry =	"	select distinct merk from tb_jenis_barang_provinsi
+			$qry =	"select distinct merk from tb_jenis_barang_provinsi
 					where nama_barang = '$namabarang' and id_provinsi = $id_provinsi";
 
 			if(isset($this->session->userdata('logged_in')->id_provinsi)){

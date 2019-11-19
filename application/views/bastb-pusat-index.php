@@ -193,14 +193,6 @@
 <!-- end loading div -->
 <div class="col-md-12 npl npr mb20 dt-buttons">
   <div class="col-sm-4" style="height: 120px; border: solid 1px; ">
-    <?php if($bolehtambah) { ?>
-    <div class="col-sm-4" style="padding-top: 10px; text-align: center; ">
-      <a href="<?php echo base_url('BASTBPusat/Add'); ?>">
-        <img src="<?php echo base_url('assets/ico/file_icon.png'); ?>" width="50px" />
-      </a><br>
-      <span style="font-size:10px; font-weight: bold;">Input Data BASTB</span>
-    </div>
-    <?php } ?>
     <div class="col-sm-4" style="padding-top: 10px; text-align: center; ">
       <a href="#" data-toggle="modal" data-target="#toggle-table-column">
         <img src="<?php echo base_url('assets/ico/grid_icon.png'); ?>" width="50px" />

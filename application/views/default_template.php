@@ -9,9 +9,9 @@
 
 	<!-- Stylesheets
 	============================================= -->
-	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/theme/css/bootstrap.css'); ?>" type="text/css" />
-	<link rel="stylesheet" href="<?php echo base_url('assets/theme/style.css?v=0.0.5'); ?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('assets/theme/style.css?v=0.0.7'); ?>" type="text/css" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/theme/css/dark.css?v=0.0.3'); ?>" type="text/css" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/theme/css/font-icons.css'); ?>" type="text/css" />
 	<link rel="stylesheet" href="<?php echo base_url('assets/theme/css/animate.css'); ?>" type="text/css" />
@@ -20,7 +20,7 @@
 	<!-- <link rel="stylesheet" href="/assets/css/vendor/font-awesome.min.css" type="text/css" /> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.css?v=0.0.2'); ?>" type="text/css" />
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/main.css?v=0.0.4'); ?>" type="text/css" />
 
 	<link rel="stylesheet" href="<?php echo base_url('assets/theme/css/responsive.css'); ?>" type="text/css" />
 
@@ -39,6 +39,8 @@
 	<script type="text/javascript" src="<?php echo base_url('assets/theme/js/jquery.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/theme/js/plugins.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/theme/js/download.js'); ?>"></script>
+
+	<script type="text/javascript" src="<?php echo base_url('assets/css/vendor/bootstrap/js/button.js'); ?>"></script>
 
 	<!-- Bootstrap Data Table Plugin -->
   	<script type="text/javascript" src="<?php echo base_url('assets/theme/js/components/bs-datatable.js'); ?>"></script>

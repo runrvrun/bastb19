@@ -8,12 +8,6 @@
 
 		function GetAll()
 		{
-			// $this->db->select('tb_kabupaten.id, tb_kabupaten.kode_kabupaten, tb_kabupaten.nama_kabupaten, tb_provinsi.nama_provinsi');
-			// $this->db->from('tb_kabupaten');
-			// $this->db->join('tb_provinsi', 'tb_provinsi.id = tb_kabupaten.id_provinsi');
-			// $this->db->order_by('tb_kabupaten.kode_kabupaten');
-			// $res = $this->db->get();
-
 			$qry = '
 					SELECT 
 						tb_kabupaten.id, tb_kabupaten.kode_kabupaten, tb_kabupaten.nama_kabupaten, tb_provinsi.nama_provinsi 
@@ -23,12 +17,11 @@
 
 			if(isset($this->session->userdata('logged_in')->id_provinsi)){
 				$qry .= "
-					where id_provinsi = ".$this->session->userdata('logged_in')->id_provinsi;
+					and tb_provinsi.id = ".$this->session->userdata('logged_in')->id_provinsi;
 			}
-
 			if(isset($this->session->userdata('logged_in')->id_kabupaten)){
 				$qry .= "
-					where id = ".$this->session->userdata('logged_in')->id_kabupaten;
+					and tb_kabupaten.id = ".$this->session->userdata('logged_in')->id_kabupaten;
 			}
 			
 			$res = $this->db->query($qry);

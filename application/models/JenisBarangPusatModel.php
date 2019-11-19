@@ -15,7 +15,10 @@
 			// $res = $this->db->get();
 			$qry = '
 				SELECT 
-				tb_jenis_barang_pusat.id, tb_jenis_barang_pusat.jenis_barang, tb_jenis_barang_pusat.nama_barang,tb_jenis_barang_pusat.merk, tb_penyedia_pusat.nama_penyedia_pusat, tb_jenis_barang_pusat.kode_barang, tb_jenis_barang_pusat.akun FROM 
+				tb_jenis_barang_pusat.id, tb_jenis_barang_pusat.jenis_barang, tb_jenis_barang_pusat.nama_barang,
+				tb_jenis_barang_pusat.merk, tb_penyedia_pusat.nama_penyedia_pusat, tb_jenis_barang_pusat.kode_barang, 
+				tb_jenis_barang_pusat.akun, tb_jenis_barang_pusat.nama_file
+				FROM 
 				tb_jenis_barang_pusat INNER JOIN tb_penyedia_pusat 
 				ON tb_penyedia_pusat.id = tb_jenis_barang_pusat.id_penyedia_pusat
 			';
@@ -42,6 +45,10 @@
 				ON tb_penyedia_pusat.id = tb_jenis_barang_pusat.id_penyedia_pusat
 			';
 			
+			if(isset($this->session->userdata('logged_in')->id_penyedia_pusat)){
+				$qry .= "
+					where id_penyedia_pusat = ".$this->session->userdata('logged_in')->id_penyedia_pusat;
+			}
 			$res = $this->db->query($qry);
 
 			return $res->num_rows();
@@ -65,6 +72,10 @@
 				'.$filter.'
 			';
 			
+			if(isset($this->session->userdata('logged_in')->id_penyedia_pusat)){
+				$qry .= "
+					and id_penyedia_pusat = ".$this->session->userdata('logged_in')->id_penyedia_pusat;
+			}
 			$res = $this->db->query($qry);
 
 			return $res->num_rows();
@@ -80,6 +91,10 @@
 				where 1 = 1
 			'.$filter;
 			
+			if(isset($this->session->userdata('logged_in')->id_penyedia_pusat)){
+				$qry .= "
+					and id_penyedia_pusat = ".$this->session->userdata('logged_in')->id_penyedia_pusat;
+			}
 			$res = $this->db->query($qry);
 
 			return $res->num_rows();
@@ -93,8 +108,13 @@
 					tb_jenis_barang_pusat.id, tb_jenis_barang_pusat.jenis_barang, tb_jenis_barang_pusat.nama_barang,tb_jenis_barang_pusat.merk, tb_penyedia_pusat.nama_penyedia_pusat, tb_jenis_barang_pusat.kode_barang, tb_jenis_barang_pusat.akun FROM 
 					tb_jenis_barang_pusat INNER JOIN tb_penyedia_pusat 
 					ON tb_penyedia_pusat.id = tb_jenis_barang_pusat.id_penyedia_pusat
-					where 1 = 1
-					'.$filter.'
+					where 1 = 1';
+					
+			if(isset($this->session->userdata('logged_in')->id_penyedia_pusat)){
+				$qry .= "
+					and id_penyedia_pusat = ".$this->session->userdata('logged_in')->id_penyedia_pusat;
+			}
+				$qry .= $filter.'
 					ORDER BY '.$col.' '.$dir;
 			if($length > 0)
 				$qry .=	' LIMIT ' . $start . ',' . $length;
@@ -121,8 +141,13 @@
 						or tb_jenis_barang_pusat.merk LIKE "%'.$search.'%"
 						or tb_penyedia_pusat.nama_penyedia_pusat LIKE "%'.$search.'%"
 						or tb_jenis_barang_pusat.kode_barang LIKE "%'.$search.'%"
-						or tb_jenis_barang_pusat.akun LIKE "%'.$search.'%")
-					'.$filter.'
+						or tb_jenis_barang_pusat.akun LIKE "%'.$search.'%")';
+						
+			if(isset($this->session->userdata('logged_in')->id_penyedia_pusat)){
+				$qry .= "
+					and id_penyedia_pusat = ".$this->session->userdata('logged_in')->id_penyedia_pusat;
+			}
+				$qry = $filter.'
 					ORDER BY '.$col.' '.$dir;
 			if($length > 0)
 				$qry .=	' LIMIT ' . $start . ',' . $length;
@@ -199,6 +224,9 @@
 			// $qry =	"	select distinct merk from tb_jenis_barang_pusat
 			// 		where nama_barang = '$namabarang' and id_penyedia_pusat = $id_penyedia_pusat";
 			
+			$nama_barang = str_replace("'","\'",$namabarang);
+			$nama_barang = str_replace('"','\"',$namabarang);
+
 			if($id_penyedia_pusat == 'all'){
 				$qry =	"	select distinct merk from tb_jenis_barang_pusat
 					where nama_barang = '$namabarang' order by merk";
@@ -218,15 +246,13 @@
 
 		function GetDistinctNamaBarang()
 		{
-			$qry = '
-				select distinct nama_barang from tb_jenis_barang_pusat
-					order by nama_barang
+			$qry = 'select distinct nama_barang from tb_jenis_barang_pusat
 			';
 
 			if(isset($this->session->userdata('logged_in')->id_penyedia_pusat)){
-				$qry .= "
-					where id_penyedia_pusat = ".$this->session->userdata('logged_in')->id_penyedia_pusat;
+				$qry .= " where id_penyedia_pusat = ".$this->session->userdata('logged_in')->id_penyedia_pusat;
 			}
+			$qry .= " order by nama_barang";
 			
 			$res = $this->db->query($qry);
 

@@ -76,22 +76,9 @@
 <div id="loading" class="loader">
 </div>
 <!-- end loading div -->
-<div id="headerKontrak" style="width:100%; text-align:center; mergin-bottom: 50px; width: 100%">
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <div style="float:left; padding: 10px; width:17%">
-      <label>TAHUN ANGGARAN</label>
-        <select name="tahun_anggaran" id="tahun_anggaran" class="form-control js-example-basic-single" required>
-        <?php 
-          foreach($tahun_pengadaan as $tahun){
-            if( $tahun->tahun_pengadaan == date('Y', strtotime(NOW)) )
-              echo "<option value=".$tahun->tahun_pengadaan." selected>".$tahun->tahun_pengadaan."</option>";
-            else
-              echo "<option value=".$tahun->tahun_pengadaan.">".$tahun->tahun_pengadaan."</option>";
-          }
-        ?>
-        </select>
-    </div>
-    <div style="float:left; padding: 10px; width:20%">
+<div id="headerKontrak">
+  <div class="btn-group" role="group" aria-label="Basic example">    
+    <div class="form-group">
       <label>PROVINSI</label>
         <select name="id_provinsi" id="id_provinsi" class="form-control" multiple="multiple" required>
         <?php 
@@ -100,29 +87,7 @@
           }
         ?>
         </select>
-    </div>
-    <div style="float:left; padding: 10px; width:20%">
-      <label>KABUPATEN</label>
-        <select name="id_kabupaten" id="id_kabupaten" class="form-control" multiple="multiple" required>
-        </select>
-    </div>
-    <div style="float:left; padding: 10px; width:23%">
-      <label>NAMA BARANG</label>
-        <select name="list_nama_barang" id="list_nama_barang" class="form-control" multiple="multiple" required>
-        <?php 
-          // foreach($barang as $brg){
-          //   echo "<option value='".$brg->nama_barang."'>".$brg->nama_barang."</option>";
-          // }
-        ?>
-        </select>
-    </div>
-    <div style="float:left; padding: 10px; width:20%; margin-top:20px;">
-      <!-- <div class="col-sm-6" style="padding-top: 10px; text-align: center; "> -->
         <button type="button" id="btnProses" class="button button-3d nomargin" style="background-color:green;">Proses</button>
-<!--       </div> -->
-<!--       <div class="col-sm-6" style="margin-top: 5px; text-align: center; ">
-        <img id="ExportReporttoExcel" style="cursor: pointer;" src="<?php echo base_url('assets/ico/excel_icon.png'); ?>" width="50px" />
-      </div> -->
     </div>
   </div>
 </div>
@@ -140,16 +105,16 @@
       <h3>Unit</h3>
       <img id="ExportReporttoExcelUnit" style="cursor: pointer; float: right; margin-top: -50px;" src="<?php echo base_url('assets/ico/excel_icon.png'); ?>" width="50px" />
       <hr>
-      <table class="table table-bordered" id="tableUnit">
+      <table class="table table-bordered" id="tableUnit" style="width:100%">
         <thead>
           <tr>
+            <th>Provinsi</th>
             <th>No. Kontrak</th>
             <th>Nama Barang</th>
+            <th>Merk Barang</th>
             <th>Penyedia</th>
-            <!-- <th>Kontrak</th> -->
             <th>Alokasi</th>
-            <!-- <th>(%)</th> -->
-            <th>BAP-STHP</th>
+            <th>BAPHP</th>
             <th>(%)</th>
             <th>BASTB</th>
             <th>(%)</th>
@@ -165,16 +130,16 @@
       <h3>Nilai (RP)</h3>
       <img id="ExportReporttoExcelNilai" style="cursor: pointer; float: right; margin-top: -50px;" src="<?php echo base_url('assets/ico/excel_icon.png'); ?>" width="50px" />
       <hr>
-      <table class="table table-bordered" id="tableNilai">
+      <table class="table table-bordered" id="tableNilai" style="width:100%">
         <thead>
           <tr>
+            <th>Provinsi</th>
             <th>No. Kontrak</th>
             <th>Nama Barang</th>
+            <th>Merk Barang</th>
             <th>Penyedia</th>
-            <!-- <th>Kontrak</th> -->
             <th>Alokasi</th>
-            <!-- <th>(%)</th> -->
-            <th>BAP-STHP</th>
+            <th>BAPHP</th>
             <th>(%)</th>
             <th>BASTB</th>
             <th>(%)</th>
@@ -250,14 +215,14 @@
         
     },
     columns: [
+        { data: "nama_provinsi" },
         { data: "no_kontrak" },
         { data: "nama_barang" },
+        { data: "merk" },
         { data: "penyedia" },
-        // { data: "kontrak" },
         { data: "alokasi" },
-        // { data: "persen_alokasi", "className": "table-cell-percent" },
-        { data: "bapsthp" },
-        { data: "persen_bapsthp", "className": "table-cell-percent"},
+        { data: "baphp" },
+        { data: "persen_baphp", "className": "table-cell-percent"},
         { data: "bastb" },
         { data: "persen_bastb", "className": "table-cell-percent" },
     ],
@@ -309,14 +274,14 @@
         
     },
     columns: [
+        { data: "nama_provinsi_nilai" },
         { data: "no_kontrak_nilai" },
         { data: "nama_barang_nilai" },
+        { data: "merk_nilai" },
         { data: "penyedia_nilai" },
-        // { data: "kontrak_nilai" },
         { data: "alokasi_nilai" },
-        // { data: "persen_alokasi_nilai", "className": "table-cell-percent" },
-        { data: "bapsthp_nilai" },
-        { data: "persen_bapsthp_nilai", "className": "table-cell-percent"},
+        { data: "baphp_nilai" },
+        { data: "persen_baphp_nilai", "className": "table-cell-percent"},
         { data: "bastb_nilai" },
         { data: "persen_bastb_nilai", "className": "table-cell-percent" },
     ],

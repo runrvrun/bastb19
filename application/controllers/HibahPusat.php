@@ -2,7 +2,34 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class HibahPusat extends CI_Controller {
-
+	public $cols = array(
+		array("column" => "tahun_anggaran", "caption" => "Jabatan Mengetahui", "dbcolumn" => "tahun_anggaran"),
+		array("column" => "tanggal_naskah_hibah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "tanggal_naskah_hibah"),
+		array("column" => "no_naskah_hibah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "no_naskah_hibah"),
+		array("column" => "tanggal_bast_bmn", "caption" => "Jabatan Mengetahui", "dbcolumn" => "tanggal_bast_bmn"),
+		array("column" => "no_bast_bmn", "caption" => "Jabatan Mengetahui", "dbcolumn" => "no_bast_bmn"),
+		array("column" => "tanggal_surat_pernyataan", "caption" => "Jabatan Mengetahui", "dbcolumn" => "tanggal_surat_pernyataan"),
+		array("column" => "no_surat_pernyataan", "caption" => "Jabatan Mengetahui", "dbcolumn" => "no_surat_pernyataan"),
+		array("column" => "nama_provinsi", "caption" => "Jabatan Mengetahui", "dbcolumn" => "nama_provinsi"),
+		array("column" => "nama_kabupaten", "caption" => "Jabatan Mengetahui", "dbcolumn" => "nama_kabupaten"),
+		array("column" => "total_unit", "caption" => "Jabatan Mengetahui", "dbcolumn" => "total_unit"),
+		array("column" => "total_nilai", "caption" => "Jabatan Mengetahui", "dbcolumn" => "total_nilai"),
+		array("column" => "nama_penyerah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "nama_penyerah"),
+		array("column" => "nip_penyerah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "nip_penyerah"),
+		array("column" => "pangkat_penyerah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "pangkat_penyerah"),
+		array("column" => "jabatan_penyerah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "jabatan_penyerah"),
+		array("column" => "alamat_dinas_penyerah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "alamat_dinas_penyerah"),
+		array("column" => "titik_serah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "titik_serah"),
+		array("column" => "nama_wilayah", "caption" => "Jabatan Mengetahui", "dbcolumn" => "nama_wilayah"),
+		array("column" => "instansi_penerima", "caption" => "Jabatan Mengetahui", "dbcolumn" => "instansi_penerima"),
+		array("column" => "nama_penerima", "caption" => "Jabatan Mengetahui", "dbcolumn" => "nama_penerima"),
+		array("column" => "nip_penerima", "caption" => "Jabatan Mengetahui", "dbcolumn" => "nip_penerima"),
+		array("column" => "pangkat_penerima", "caption" => "Jabatan Mengetahui", "dbcolumn" => "pangkat_penerima"),
+		array("column" => "jabatan_penerima", "caption" => "Jabatan Mengetahui", "dbcolumn" => "jabatan_penerima"),
+		array("column" => "alamat_dinas_penerima", "caption" => "Jabatan Mengetahui", "dbcolumn" => "alamat_dinas_penerima"),
+		array("column" => "ketfoto", "caption" => "Jabatan Mengetahui", "dbcolumn" => "ketfoto"),
+	);
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -13,7 +40,7 @@ class HibahPusat extends CI_Controller {
 		$this->load->model('PenyediaPusatModel');
 		$this->load->model('JenisBarangPusatModel');
 		$this->load->model('ProvinsiModel');
-		$this->load->model('AlokasiPusatModel');
+		$this->load->model('Alokasi_pusat_model');
 		$this->load->model('SettingHibahPusatModel');
 
 		$this->load->library('Pdf');
@@ -25,10 +52,10 @@ class HibahPusat extends CI_Controller {
 		$param['hibah_pusat'] = array();
 		$param['total_unit'] = $this->HibahPusatModel->GetTotalUnit();
 		$param['total_nilai'] = $this->HibahPusatModel->GetTotalNilai();
-		$param['total_unit_alokasi'] = $this->AlokasiPusatModel->GetTotalUnit();
-		$param['total_nilai_alokasi'] = $this->AlokasiPusatModel->GetTotalNilai();
-		// $param['total_kontrak'] = $this->KontrakPusatModel->GetTotalKontrak();
-		// $param['total_merk'] = $this->KontrakPusatModel->GetTotalMerk();
+		$param['total_unit_alokasi'] = $this->Alokasi_pusat_model->total_unit();
+		$param['total_nilai_alokasi'] = $this->Alokasi_pusat_model->total_nilai();
+		// $param['total_kontrak'] = $this->KontrakPusatModel->total_kontrak();
+		// $param['total_merk'] = $this->KontrakPusatModel->total_merk();
 		$data = array(
 	        'title' => 'Data Hibah',
 	        'content-path' => 'PENGADAAN PUSAT / HIBAH',
@@ -278,11 +305,11 @@ class HibahPusat extends CI_Controller {
 	public function Add()
 	{
 		$this->load->library('parser');
-		$param['alokasi_pusat'] = $this->AlokasiPusatModel->GetAll();
+		$param['alokasi_pusat'] = $this->Alokasi_pusat_model->get();
 
 		$data = array(
 	        'title' => 'INPUT DOKUMEN HIBAH',
-	        'content-path' => 'PEGADAAN PUSAT / HIBAH / INPUT DOKUMEN HIBAH',
+	        'content-path' => 'PENGADAAN PUSAT / HIBAH / INPUT DOKUMEN HIBAH',
 	        'content' => $this->load->view('hibah-pusat-add', $param, TRUE),
 		);
 		$this->parser->parse('default_template', $data);
@@ -290,7 +317,6 @@ class HibahPusat extends CI_Controller {
 
 	public function doAdd()
 	{	
-
 		$listIdAlokasi = $this->input->post('listIdAlokasi');
 		$arrayid = explode(",", $listIdAlokasi);
 
@@ -300,9 +326,9 @@ class HibahPusat extends CI_Controller {
 		$total_nilai = 0;
 
 		foreach($arrayid as $id){
-			$alokasi = $this->AlokasiPusatModel->GetData($id);
-			$unit = $this->AlokasiPusatModel->GetUnit($id);
-			$nilai = $this->AlokasiPusatModel->GetNilai($id);
+			$alokasi = $this->Alokasi_pusat_model->get($id);
+			$unit = $this->Alokasi_pusat_model->total_unit($id);
+			$nilai = $this->Alokasi_pusat_model->total_nilai($id);
 
 			$total_unit += $unit;
 			$total_nilai += $nilai;
@@ -435,7 +461,7 @@ class HibahPusat extends CI_Controller {
 			$inserted = $this->HibahPusatModel->GetLast();
 			$idinserted = $inserted->id;
 			foreach($arrayid as $id){
-				$this->AlokasiPusatModel->UpdateHibahId($id, $idinserted);
+				$this->Alokasi_pusat_model->UpdateHibahId($id, $idinserted);
 			}
 		}
 
@@ -711,16 +737,20 @@ class HibahPusat extends CI_Controller {
 		    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 		    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-		    		$unit = $alokasi->jumlah_barang_detail;
-		    		$nilai = $alokasi->nilai_barang_detail;
+		    		$unit = $alokasi->jumlah_barang;
+		    		$nilai = $alokasi->nilai_barang;
 		    	}
-		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
+		    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 1'){
 		    		$unit = $alokasi->jumlah_barang_rev_1;
 		    		$nilai = $alokasi->nilai_barang_rev_1;
 		    	}
-		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 2'){
+		    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 2'){
 		    		$unit = $alokasi->jumlah_barang_rev_2;
 		    		$nilai = $alokasi->nilai_barang_rev_2;
+		    	}
+		    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 3'){
+		    		$unit = $alokasi->jumlah_barang_rev_3;
+		    		$nilai = $alokasi->nilai_barang_rev_3;
 		    	}
 		    	// $pdf->Cell(2, 1, number_format($unit, 0), 1, 0, 'C');
 		    	// $pdf->Cell(3, 1, number_format($nilai, 0), 1, 0, 'C');
@@ -1012,14 +1042,14 @@ class HibahPusat extends CI_Controller {
 		    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 		    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-		    		$unit = $alokasi->jumlah_barang_detail;
-		    		$nilai = $alokasi->nilai_barang_detail;
+		    		$unit = $alokasi->jumlah_barang;
+		    		$nilai = $alokasi->nilai_barang;
 		    	}
-		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
+		    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 1'){
 		    		$unit = $alokasi->jumlah_barang_rev_1;
 		    		$nilai = $alokasi->nilai_barang_rev_1;
 		    	}
-		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 2'){
+		    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 2'){
 		    		$unit = $alokasi->jumlah_barang_rev_2;
 		    		$nilai = $alokasi->nilai_barang_rev_2;
 		    	}
@@ -1198,7 +1228,7 @@ class HibahPusat extends CI_Controller {
 	    	$totalunit = 0;
 	    	$totalnilai = 0;
 
-	    	$data_alokasi_sp = $this->AlokasiPusatModel->GetByHibahGrouping($idinserted);
+	    	$data_alokasi_sp = $this->Alokasi_pusat_model->GetByHibahGrouping($idinserted);
 
 	    	foreach($data_alokasi_sp as $alokasi){
 	    		$pdf->Cell(2.5, 1, $no, 1, 0, 'C');
@@ -1336,14 +1366,14 @@ class HibahPusat extends CI_Controller {
 		    	// $pdf->Cell(1.25, 1, '', 1, 0, 'C');
 
 		    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-		    		$unit = $alokasi->jumlah_barang_detail;
-		    		$nilai = $alokasi->nilai_barang_detail;
+		    		$unit = $alokasi->jumlah_barang;
+		    		$nilai = $alokasi->nilai_barang;
 		    	}
-		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
+		    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 1'){
 		    		$unit = $alokasi->jumlah_barang_rev_1;
 		    		$nilai = $alokasi->nilai_barang_rev_1;
 		    	}
-		    	else if($alokasi->status_alokasi == 'DATA ADENDUM 2'){
+		    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 2'){
 		    		$unit = $alokasi->jumlah_barang_rev_2;
 		    		$nilai = $alokasi->nilai_barang_rev_2;
 		    	}
@@ -1435,8 +1465,9 @@ class HibahPusat extends CI_Controller {
 		$id = $this->input->get('id');
 
 		$hibah_pusat = $this->HibahPusatModel->Get($id);
+		// var_dump($hibah_pusat);exit();
 		$param['hibah_pusat'] = $hibah_pusat;
-		$param['list_alokasi'] = $this->AlokasiPusatModel->GetByHibah($id);
+		$param['list_alokasi'] = $this->Alokasi_pusat_model->GetByHibah($id);
 
 		$param['no_naskah_hibah'] = $this->clean($hibah_pusat->no_naskah_hibah);
 		$param['no_bast_bmn'] = $this->clean($hibah_pusat->no_bast_bmn);
@@ -1550,7 +1581,7 @@ class HibahPusat extends CI_Controller {
 
 		$data_alokasi = array();
 		foreach($arrayid as $id){
-			$alokasi = $this->AlokasiPusatModel->GetData($id);
+			$alokasi = $this->Alokasi_pusat_model->get($id);
 			array_push($data_alokasi, $alokasi);
 		}
 
@@ -1605,7 +1636,7 @@ class HibahPusat extends CI_Controller {
  			redirect('HibahPusat/Add');
 		}
 
-		$data_alokasi = $this->AlokasiPusatModel->GetByHibah($id);
+		$data_alokasi = $this->Alokasi_pusat_model->GetByHibah($id);
 		$provinsi = $data_alokasi[0]->nama_provinsi;
 		$kabupaten = $data_alokasi[0]->nama_kabupaten;
 
@@ -1774,7 +1805,7 @@ class HibahPusat extends CI_Controller {
 
 			$this->HibahPusatModel->Update($id, $data);
 
-			$data_alokasi = $this->AlokasiPusatModel->GetByHibah($id);
+			$data_alokasi = $this->Alokasi_pusat_model->GetByHibah($id);
 
 			$total_unit = $hibah_pusat->total_unit;
 			$total_nilai = $hibah_pusat->total_nilai;
@@ -2061,14 +2092,14 @@ class HibahPusat extends CI_Controller {
 			    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 			    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-			    		$unit = $alokasi->jumlah_barang_detail;
-			    		$nilai = $alokasi->nilai_barang_detail;
+			    		$unit = $alokasi->jumlah_barang;
+			    		$nilai = $alokasi->nilai_barang;
 			    	}
-			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
+			    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 1'){
 			    		$unit = $alokasi->jumlah_barang_rev_1;
 			    		$nilai = $alokasi->nilai_barang_rev_1;
 			    	}
-			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 2'){
+			    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 2'){
 			    		$unit = $alokasi->jumlah_barang_rev_2;
 			    		$nilai = $alokasi->nilai_barang_rev_2;
 			    	}
@@ -2363,14 +2394,14 @@ class HibahPusat extends CI_Controller {
 			    	// $pdf->Cell(1, 1, $alokasi->jenis_barang, 1, 0, 'C');
 
 			    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-			    		$unit = $alokasi->jumlah_barang_detail;
-			    		$nilai = $alokasi->nilai_barang_detail;
+			    		$unit = $alokasi->jumlah_barang;
+			    		$nilai = $alokasi->nilai_barang;
 			    	}
-			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
+			    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 1'){
 			    		$unit = $alokasi->jumlah_barang_rev_1;
 			    		$nilai = $alokasi->nilai_barang_rev_1;
 			    	}
-			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 2'){
+			    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 2'){
 			    		$unit = $alokasi->jumlah_barang_rev_2;
 			    		$nilai = $alokasi->nilai_barang_rev_2;
 			    	}
@@ -2550,7 +2581,7 @@ class HibahPusat extends CI_Controller {
 		    	$totalunit = 0;
 		    	$totalnilai = 0;
 
-		    	$data_alokasi_sp = $this->AlokasiPusatModel->GetByHibahGrouping($id);
+		    	$data_alokasi_sp = $this->Alokasi_pusat_model->GetByHibahGrouping($id);
 
 		    	foreach($data_alokasi_sp as $alokasi){
 		    		$pdf->Cell(2.5, 1, $no, 1, 0, 'C');
@@ -2690,14 +2721,14 @@ class HibahPusat extends CI_Controller {
 			    	// $pdf->Cell(1.25, 1, '', 1, 0, 'C');
 
 			    	if($alokasi->status_alokasi == 'DATA KONTRAK AWAL'){
-			    		$unit = $alokasi->jumlah_barang_detail;
-			    		$nilai = $alokasi->nilai_barang_detail;
+			    		$unit = $alokasi->jumlah_barang;
+			    		$nilai = $alokasi->nilai_barang;
 			    	}
-			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 1'){
+			    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 1'){
 			    		$unit = $alokasi->jumlah_barang_rev_1;
 			    		$nilai = $alokasi->nilai_barang_rev_1;
 			    	}
-			    	else if($alokasi->status_alokasi == 'DATA ADENDUM 2'){
+			    	else if($alokasi->status_alokasi == 'DATA ADDENDUM 2'){
 			    		$unit = $alokasi->jumlah_barang_rev_2;
 			    		$nilai = $alokasi->nilai_barang_rev_2;
 			    	}
@@ -2792,23 +2823,25 @@ class HibahPusat extends CI_Controller {
 
 		$hibah_pusat = $this->HibahPusatModel->Get($id);
 
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/naskah_hibah/'.$this->clean($hibah_pusat->no_naskah_hibah).'.pdf'))
+		if(!empty($hibah_pusat)){
+ 			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/naskah_hibah/'.$this->clean($hibah_pusat->no_naskah_hibah).'.pdf'))
 			unlink($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/naskah_hibah/'.$this->clean($hibah_pusat->no_naskah_hibah).'.pdf');
-
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/bast_bmn/'.$this->clean($hibah_pusat->no_bast_bmn).'.pdf'))	
+			
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/bast_bmn/'.$this->clean($hibah_pusat->no_bast_bmn).'.pdf'))	
 			unlink($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/bast_bmn/'.$this->clean($hibah_pusat->no_bast_bmn).'.pdf');
-
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/surat_pernyataan/'.$this->clean($hibah_pusat->no_surat_pernyataan).'.pdf'))
+			
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/surat_pernyataan/'.$this->clean($hibah_pusat->no_surat_pernyataan).'.pdf'))
 			unlink($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/surat_pernyataan/'.$this->clean($hibah_pusat->no_surat_pernyataan).'.pdf');
-
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_naskah_hibah/lamp_'.$this->clean($hibah_pusat->no_naskah_hibah).'.pdf'))
+			
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_naskah_hibah/lamp_'.$this->clean($hibah_pusat->no_naskah_hibah).'.pdf'))
 			unlink($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_naskah_hibah/lamp_'.$this->clean($hibah_pusat->no_naskah_hibah).'.pdf');
-
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_bast_bmn/lamp_'.$this->clean($hibah_pusat->no_bast_bmn).'.pdf'))
+			
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_bast_bmn/lamp_'.$this->clean($hibah_pusat->no_bast_bmn).'.pdf'))
 			unlink($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_bast_bmn/lamp_'.$this->clean($hibah_pusat->no_bast_bmn).'.pdf');
-
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_surat_pernyataan/lamp_'.$this->clean($hibah_pusat->no_surat_pernyataan).'.pdf'))
+			
+			if (file_exists($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_surat_pernyataan/lamp_'.$this->clean($hibah_pusat->no_surat_pernyataan).'.pdf'))
 			unlink($_SERVER['DOCUMENT_ROOT'].'/pdf_hibah/hibah_pusat/lamp_surat_pernyataan/lamp_'.$this->clean($hibah_pusat->no_surat_pernyataan).'.pdf');	
+		}
 
 		$this->HibahPusatModel->Delete($id);
 		$this->session->set_flashdata('info','Data deleted successfully.');
@@ -2892,11 +2925,11 @@ class HibahPusat extends CI_Controller {
 	        if ( $has === false ) {
 	            $finalArray[] = $nvalue;
 	        } else {
-	            $finalArray[$fk]->jumlah_barang_detail += $nvalue->jumlah_barang_detail;
+	            $finalArray[$fk]->jumlah_barang += $nvalue->jumlah_barang;
 	            $finalArray[$fk]->jumlah_barang_rev_1 += $nvalue->jumlah_barang_rev_1;
 	            $finalArray[$fk]->jumlah_barang_rev_2 += $nvalue->jumlah_barang_rev_2;
 
-	            $finalArray[$fk]->nilai_barang_detail += $nvalue->nilai_barang_detail;
+	            $finalArray[$fk]->nilai_barang += $nvalue->nilai_barang;
 	            $finalArray[$fk]->nilai_barang_rev_1 += $nvalue->nilai_barang_rev_1;
 	            $finalArray[$fk]->nilai_barang_rev_2 += $nvalue->nilai_barang_rev_2;
 	        }

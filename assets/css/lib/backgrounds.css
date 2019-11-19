@@ -1,0 +1,6 @@
+/* Background images */
+.bg-light-ltr { background-image: url('../../img/Background/blight_ltr.png'); background-position: left top; background-repeat: no-repeat; }
+.bg-light-rtl { background-image: url('../../img/Background/blight_rtl.png'); background-position: right top; background-repeat: no-repeat; }
+
+/* Background colors */
+.bg-default { background-color: #133959 !important; }

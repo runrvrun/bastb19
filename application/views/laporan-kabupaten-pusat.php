@@ -76,22 +76,9 @@
 <div id="loading" class="loader">
 </div>
 <!-- end loading div -->
-<div id="headerKontrak" style="width:100%; text-align:center; mergin-bottom: 50px; width: 100%">
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <div style="float:left; padding: 10px; width:20%">
-      <label>TAHUN ANGGARAN</label>
-        <select name="tahun_anggaran" id="tahun_anggaran" class="form-control js-example-basic-single" required>
-        <?php 
-          foreach($tahun_pengadaan as $tahun){
-            if( $tahun->tahun_pengadaan == date('Y', strtotime(NOW)) )
-              echo "<option value=".$tahun->tahun_pengadaan." selected>".$tahun->tahun_pengadaan."</option>";
-            else
-              echo "<option value=".$tahun->tahun_pengadaan.">".$tahun->tahun_pengadaan."</option>";
-          }
-        ?>
-        </select>
-    </div>
-    <div style="float:left; padding: 10px; width:25%">
+<div id="headerKontrak">
+  <div class="btn-group" role="group" aria-label="Basic example">    
+    <div class="form-group">
       <label>PROVINSI</label>
         <select name="id_provinsi" id="id_provinsi" class="form-control" multiple="multiple" required>
         <?php 
@@ -100,24 +87,7 @@
           }
         ?>
         </select>
-    </div>
-    <div style="float:left; padding: 10px; width:25%">
-      <label>NAMA BARANG</label>
-        <select name="list_nama_barang" id="list_nama_barang" class="form-control" multiple="multiple" required>
-        <?php 
-          foreach($barang as $brg){
-            echo "<option value='".$brg->nama_barang."'>".$brg->nama_barang."</option>";
-          }
-        ?>
-        </select>
-    </div>
-    <div style="float:left; padding: 10px; width:25%; margin-top:20px;">
-      <!-- <div class="col-sm-6" style="padding-top: 10px; text-align: center; "> -->
         <button type="button" id="btnProses" class="button button-3d nomargin" style="background-color:green;">Proses</button>
-<!--       </div> -->
-<!--       <div class="col-sm-6" style="margin-top: 5px; text-align: center; ">
-        <img id="ExportReporttoExcel" style="cursor: pointer;" src="<?php echo base_url('assets/ico/excel_icon.png'); ?>" width="50px" />
-      </div> -->
     </div>
   </div>
 </div>
@@ -135,17 +105,20 @@
       <h3>Unit</h3>
       <img id="ExportReporttoExcelUnit" style="cursor: pointer; float: right; margin-top: -50px;" src="<?php echo base_url('assets/ico/excel_icon.png'); ?>" width="50px" />
       <hr>
-      <table class="table table-bordered" id="tableUnit">
+      <table class="table table-bordered" id="tableUnit" style="width:100%">
         <thead>
           <tr>
             <th>Provinsi</th>
             <th>Kabupaten/Kota</th>
-            <!-- <th>Kontrak</th> -->
-            <th>Alokasi</th>
-            <!-- <th>(%)</th> -->
-            <th>BAP-STHP</th>
+            <th>Alokasi Reguler</th>
+            <th>BAPHP Reguler</th>
             <th>(%)</th>
-            <th>BASTB</th>
+            <th>BASTB Reguler</th>
+            <th>(%)</th>
+            <th>Alokasi Persediaan</th>
+            <th>BAPHP Persediaan</th>
+            <th>(%)</th>
+            <th>BASTB Persediaan</th>
             <th>(%)</th>
           </tr>
         </thead>
@@ -159,17 +132,20 @@
       <h3>Nilai (RP)</h3>
       <img id="ExportReporttoExcelNilai" style="cursor: pointer; float: right; margin-top: -50px;" src="<?php echo base_url('assets/ico/excel_icon.png'); ?>" width="50px" />
       <hr>
-      <table class="table table-bordered" id="tableNilai">
+      <table class="table table-bordered" id="tableNilai" style="width:100%">
         <thead>
           <tr>
             <th>Provinsi</th>
             <th>Kabupaten/Kota</th>
-            <!-- <th>Kontrak</th> -->
-            <th>Alokasi</th>
-            <!-- <th>(%)</th> -->
-            <th>BAP-STHP</th>
+            <th>Alokasi Reguler</th>
+            <th>BAPHP Reguler</th>
             <th>(%)</th>
-            <th>BASTB</th>
+            <th>BASTB Reguler</th>
+            <th>(%)</th>
+            <th>Alokasi Persediaan</th>
+            <th>BAPHP Persediaan</th>
+            <th>(%)</th>
+            <th>BASTB Persediaan</th>
             <th>(%)</th>
           </tr>
         </thead>
@@ -215,7 +191,7 @@
     "searching": true,
     "scrollY" : 450,
     "fixedHeader" : true,
-    // "scrollX" : true,
+    "scrollX" : true,
     "buttons": [
       {
           extend: 'excel',
@@ -244,13 +220,28 @@
     columns: [
         { data: "provinsi" },
         { data: "kabupaten" },
-        // { data: "kontrak" },
         { data: "alokasi" },
-        // { data: "persen_alokasi", "className": "table-cell-percent" },
-        { data: "bapsthp" },
-        { data: "persen_bapsthp", "className": "table-cell-percent" },
+        { data: "baphp" },
+        { data: "persen_baphp", "className": "table-cell-percent" },
         { data: "bastb" },
         { data: "persen_bastb", "className": "table-cell-percent" },
+        { data: "alokasicad" },
+        { data: "baphpcad" },
+        { data: "persen_baphpcad", "className": "table-cell-percent" },
+        { data: "bastbcad" },
+        { data: "persen_bastbcad", "className": "table-cell-percent" },
+    ],
+    columnDefs: [ 
+      {"targets": 2, "orderable": false}, 
+      {"targets": 3, "orderable": false}, 
+      {"targets": 4, "orderable": false}, 
+      {"targets": 5, "orderable": false}, 
+      {"targets": 6, "orderable": false}, 
+      {"targets": 7, "orderable": false}, 
+      {"targets": 8, "orderable": false}, 
+      {"targets": 9, "orderable": false}, 
+      {"targets": 10, "orderable": false}, 
+      {"targets": 11, "orderable": false}, 
     ],
   });
 
@@ -272,7 +263,7 @@
     "searching": true,
     "scrollY" : 450,
     "fixedHeader" : true,
-    // "scrollX" : true,
+    "scrollX" : true,
     "buttons": [
       {
           extend: 'excel',
@@ -301,13 +292,28 @@
     columns: [
         { data: "provinsi_nilai" },
         { data: "kabupaten_nilai" },
-        // { data: "kontrak_nilai" },
         { data: "alokasi_nilai" },
-        // { data: "persen_alokasi_nilai", "className": "table-cell-percent" },
-        { data: "bapsthp_nilai" },
-        { data: "persen_bapsthp_nilai", "className": "table-cell-percent" },
+        { data: "baphp_nilai" },
+        { data: "persen_baphp_nilai", "className": "table-cell-percent" },
         { data: "bastb_nilai" },
         { data: "persen_bastb_nilai", "className": "table-cell-percent" },
+        { data: "alokasicad_nilai" },
+        { data: "baphpcad_nilai" },
+        { data: "persen_baphpcad_nilai", "className": "table-cell-percent" },
+        { data: "bastbcad_nilai" },
+        { data: "persen_bastbcad_nilai", "className": "table-cell-percent" },
+    ],
+    columnDefs: [ 
+      {"targets": 2, "orderable": false}, 
+      {"targets": 3, "orderable": false}, 
+      {"targets": 4, "orderable": false}, 
+      {"targets": 5, "orderable": false}, 
+      {"targets": 6, "orderable": false}, 
+      {"targets": 7, "orderable": false}, 
+      {"targets": 8, "orderable": false}, 
+      {"targets": 9, "orderable": false}, 
+      {"targets": 10, "orderable": false}, 
+      {"targets": 11, "orderable": false}, 
     ],
   });
 
@@ -337,33 +343,84 @@
     $('.buttons-excel').hide();
     $('.js-example-basic-single').select2();
 
-    $('#list_nama_barang').multiselect({
-      maxHeight: 300,
-      includeSelectAllOption: true,
-      enableFiltering: true,
-      buttonWidth: '250px',
-    });
-
-    $('.multiselect-search').keyup(function() {
-    // alert('tes');
-      $(this).val($(this).val().toUpperCase());
-    });
+    // $('#list_nama_barang').multiselect({
+    //   maxHeight: 300,
+    //   includeSelectAllOption: true,
+    //   enableFiltering: true, 
+    //   buttonWidth: '250px',
+    // });
 
     $('#id_provinsi').multiselect({
       maxHeight: 300,
       includeSelectAllOption: true,
       enableFiltering: true,
-      buttonWidth: '250px',
+      buttonWidth: '200px',
+      onChange: function(element, checked, $option) {
+        LoadBarang();
+      },
+      onSelectAll: function(checked) {
+        LoadBarang();
+      },
+      onDeselectAll: function(checked) {
+        $('#list_nama_barang').multiselect('destroy');
+        $('#list_nama_barang').empty();
+      }
+    });
+
+    $('.multiselect-search').keyup(function() {
+      $(this).val($(this).val().toUpperCase());
     });
 
   });
+
+  function LoadBarang()
+  {
+    if($("#id_provinsi").val()){
+
+      $.ajax({
+        url: "<?php echo base_url('JenisBarangProvinsi/GetByListProvinsi'); ?>",
+        dataType: 'JSON',
+        type: 'GET',
+        data: { list_id_provinsi : $("#id_provinsi").val() },
+        success: function(data) {
+          $('#list_nama_barang').multiselect('destroy');
+          $('#list_nama_barang').empty();
+          for(var i=0;i<data.length;i++)
+          {
+            $('#list_nama_barang').append($('<option></option>').attr('value', data[i]["nama_barang"]).text(data[i]["nama_barang"]));
+          }
+
+          $('#list_nama_barang').multiselect({
+            maxHeight: 300,
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            buttonWidth: '200px',
+          });
+
+          $('.multiselect-search').keyup(function() { $(this).val($(this).val().toUpperCase()); });
+
+          $('#list_nama_barang').show();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+      });
+
+      var query = $('.multiselect-search').val();
+      if (query) {
+          $('.multiselect-search').val('').trigger('keydown');
+      }
+
+    }
+    else{
+      $('#list_nama_barang').multiselect('destroy');
+      $('#list_nama_barang').empty();
+    }
+  }
 
   $('#btnProses').on('click', function() {
     // alert( $("#list_nama_barang").val() );
       tableUnit.draw();
       tableNilai.draw()
   });
-
-
-
 </script>

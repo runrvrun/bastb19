@@ -221,7 +221,9 @@ class JenisBarangProvinsi extends CI_Controller {
 
 	public function GetMerk()
 	{
-		$nama_barang = urldecode($this->input->get('nama_barang'));
+		// $nama_barang = urldecode($this->input->get('nama_barang'));
+		$nama_barang = $this->input->get('nama_barang');
+		// echo $nama_barang;exit();
 		$id_penyedia_provinsi = urldecode($this->input->get('id_penyedia_provinsi'));
 
 		$data = $this->JenisBarangProvinsiModel->GetMerkByNamaBarang($id_penyedia_provinsi, $nama_barang);

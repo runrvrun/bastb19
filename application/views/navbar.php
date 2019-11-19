@@ -16,11 +16,10 @@
 
       <!-- Logo
       ============================================= -->
-      <div id="logo">
+      <div id="logo" style="margin-top:7px;">
         <a href="<?php echo base_url('Home'); ?>" title="BASTB Logo">
-          <img src="<?php echo base_url('assets/img/logo_png.png'); ?>" alt="BASTB Logo" height="80" />
-        </a>
-        
+          <img src="<?php echo base_url('assets/img/logo_png.png'); ?>" alt="BASTB Logo" height="60" />
+        </a>        
       </div><!-- #logo end -->
 
       <!-- Primary Navigation
@@ -92,16 +91,47 @@
         ============================================= -->
         <div id="top-user-account">
           <a href="#" id="top-user-account-trigger">
-            <img src="<?php echo base_url().'../upload/user_profile/'.$this->session->userdata('logged_in')->file_avatar; ?>" class="img-circle img-responsive" alt="User Photo" />
+            <img src="<?php echo base_url('upload/user_profile/').$this->session->userdata('logged_in')->file_avatar; ?>" class="img-circle img-responsive" alt="User Photo" />
           </a>
           <div class="top-user-account-content">
             <div class="top-user-account-title">
+              <!-- <h4>TA: <?php echo $this->session->userdata('logged_in')->tahun_pengadaan;?></h4> -->
               <h4><?php echo $this->session->userdata('logged_in')->id_pengguna; ?></h4>
             </div>
             <div class="top-user-account-menu">
               <a href="<?php echo base_url('UserProfile'); ?>">
                 <span class="top-user-account-menu-item clearfix">Settings</span>
               </a>
+              <?php switch($this->session->userdata('logged_in')->role_pengguna){ 
+                case 'ADMIN PENYEDIA PUSAT':
+              ?>                
+              <a href="<?php echo base_url('PenyediaPusat/autofill'); ?>">
+                <span class="top-user-account-menu-item clearfix">Autofill</span>
+              </a>
+              <?php 
+              break;
+              case 'ADMIN PENYEDIA PROVINSI':
+              ?>                
+              <a href="<?php echo base_url('PenyediaProvinsi/autofill'); ?>">
+                <span class="top-user-account-menu-item clearfix">Autofill</span>
+              </a>
+              <?php 
+              break;
+              case 'ADMIN PROVINSI':
+              ?>                
+              <a href="<?php echo base_url('Provinsi/autofill'); ?>">
+                <span class="top-user-account-menu-item clearfix">Autofill</span>
+              </a>
+              <?php 
+              break;
+              case 'ADMIN KABUPATEN':
+              ?>                
+              <a href="<?php echo base_url('Kabupaten/autofill'); ?>">
+                <span class="top-user-account-menu-item clearfix">Autofill</span>
+              </a>
+              <?php 
+              break;
+              } ?>
               <a href="<?php echo base_url('Home/Logout'); ?>"><span class="top-user-account-menu-item clearfix">Log Out</span></a>
             </div>
           </div>

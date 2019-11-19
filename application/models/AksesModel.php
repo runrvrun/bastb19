@@ -21,6 +21,7 @@
 				 	FROM tb_menu men
 					LEFT JOIN tb_akses_menu am
 					ON men.id = am.id_menu 
+					order by menu_order asc
 					";
 		
 			$res = $this->db->query($qry);
@@ -48,6 +49,7 @@
 				$qry =	"	
 					SELECT * 
 					from tb_akses_menu
+					order by menu_order asc
 					";
 			}
 			else if($role == 'ADMIN LO'){
@@ -55,6 +57,7 @@
 					SELECT * 
 					from tb_akses_menu
 					WHERE admin_lo_acc = 1
+					order by menu_order asc
 					";
 			}
 			else if($role == 'ADMIN PROVINSI'){
@@ -62,6 +65,7 @@
 					SELECT * 
 					from tb_akses_menu
 					WHERE admin_provinsi_acc = 1
+					order by menu_order asc
 					";
 			}
 			else if($role == 'ADMIN KABUPATEN'){
@@ -69,6 +73,7 @@
 					SELECT * 
 					from tb_akses_menu
 					WHERE admin_kabupaten_acc = 1
+					order by menu_order asc
 					";
 			}
 			else if($role == 'ADMIN PENYEDIA PUSAT'){
@@ -76,6 +81,7 @@
 					SELECT * 
 					from tb_akses_menu
 					WHERE admin_penyedia_pusat_acc = 1
+					order by menu_order asc
 					";
 			}
 			else if($role == 'ADMIN PENYEDIA PROVINSI'){
@@ -83,6 +89,7 @@
 					SELECT * 
 					from tb_akses_menu
 					WHERE admin_penyedia_provinsi_acc = 1
+					order by menu_order asc
 					";
 			}
 			else if($role == 'ADMIN HIBAH'){
@@ -90,6 +97,7 @@
 					SELECT * 
 					from tb_akses_menu
 					WHERE admin_hibah_acc = 1
+					order by menu_order asc
 					";
 			}
 			else if($role == 'ADMIN KHUSUS'){
@@ -97,6 +105,7 @@
 					SELECT * 
 					from tb_akses_menu
 					WHERE admin_khusus_acc = 1
+					order by menu_order asc
 					";
 			}
 			

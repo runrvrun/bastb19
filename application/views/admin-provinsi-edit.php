@@ -35,7 +35,7 @@
       </div>
       <div class="col_full">
         <label>PASSWORD</label>
-        <input type="password" name="password" class="form-control" />
+        <input type="password" name="password" placeholder="Ubah Password" class="form-control" />
       </div>
       <div class="col_full nobottommargin">
         <a href="<?php echo base_url('AdminProvinsi'); ?>">
