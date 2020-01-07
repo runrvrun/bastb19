@@ -409,8 +409,7 @@
 
   $('#Table1 tbody').on('click', 'tr', function () {
       
-      
-      if(table.row(this).data()["status_rilis"] == 'BELUM'){
+      if(table.row(this).data()["status_rilis"].indexOf('BELUM')){
         var id = table.row(this).id();
         var unit = table.row(this).data()["jumlah_barang"].replace(/\,/g,"");
         var nilai = table.row(this).data()["nilai_barang"].replace(/\,/g,"");

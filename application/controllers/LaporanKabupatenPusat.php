@@ -226,7 +226,7 @@ class LaporanKabupatenPusat extends CI_Controller {
                     $nestedData['persen_baphpcad_nilai'] = '<a class="btn btn-danger" style="min-width:60px">'.number_format($nestedData['persen_baphpcad_nilai'],0).'%</a>';
                 }    
 				$nestedData['bastbcad_nilai'] = number_format($post->bastb_persediaan_nilai, 0);
-                $nestedData['persen_bastbcad_nilai'] = $post->alokasi_persediaan_nilai == 0 ? 0 : ($post->bastb_persediaan / $post->alokasi_persediaan_nilai * 100);
+                $nestedData['persen_bastbcad_nilai'] = $post->alokasi_persediaan_nilai == 0 ? 0 : ($post->bastb_persediaan_nilai / $post->alokasi_persediaan_nilai * 100);
                 if($nestedData['persen_bastbcad_nilai'] >= 100){
                     $nestedData['persen_bastbcad_nilai'] = '<a class="btn btn-success" style="min-width:60px">'.number_format($nestedData['persen_bastbcad_nilai'],0).'%</a>';
                 }else{

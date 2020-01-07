@@ -58,7 +58,7 @@
         <?php }elseif($val['column'] == 'nama_barang'){ ?>
           <input type="text" name="<?php echo $val['column'];?>" id="<?php echo $val['column'];?>" class="form-control" value="<?php echo $alokasi_pusat->{$val['column']};?>" readonly />                   
         <?php }elseif($val['column'] == 'merk'){ ?>
-          <input type="text" name="<?php echo $val['column'];?>" id="<?php echo $val['column'];?>" class="form-control" value="<?php echo $alokasi_pusat->{$val['column']};?>" readonly />                   
+          <input type="text" name="<?php echo $val['column'];?>" id="<?php echo $val['column'];?>" class="form-control" value="<?php echo htmlentities($alokasi_pusat->{$val['column']});?>" readonly />                   
         <?php }elseif($val['column'] == 'jumlah_barang'){ ?>
           <input type="text" name="<?php echo $val['column'];?>" id="<?php echo $val['column'];?>" class="form-control" value=<?php echo number_format($alokasi_pusat->jumlah_barang_rev,0);?> readonly />                   
         <?php }elseif($val['column'] == 'nilai_barang'){ ?>

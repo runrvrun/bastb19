@@ -424,7 +424,7 @@
   $('#Table1 tbody').on('click', 'tr', function () {
       
       
-      if(table.row(this).data()["status_rilis"] == 'BELUM'){
+      if(table.row(this).data()["status_rilis"] == '<a class="btn btn-danger">BELUM</a>'){
         var id = table.row(this).id();
         // alert( 'Clicked row id '+id );
         var unit = table.row(this).data()["jumlah_barang"].replace(/\,/g,"");
