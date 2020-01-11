@@ -60,7 +60,7 @@
 				LEFT JOIN tb_alokasi_persediaan_pusat alp ON tb_baphp_persediaan.id_alokasi_persediaan_pusat = alp.id
 				LEFT JOIN tb_alokasi_pusat ap ON alp.id_alokasi = ap.id
 				LEFT JOIN tb_baphp_reguler br ON br.id_alokasi_pusat = ap.id
-				LEFT JOIN tb_sp2d ON tb_sp2d.id_kontrak_pusat = tb_kontrak_pusat.id
+				LEFT JOIN tb_sp2d ON tb_sp2d.id_kontrak_pusat = tb_kontrak_pusat.id AND ap.termin=tb_sp2d.keterangan
 				WHERE 1=1 ";
 				if (isset($param['id_kontrak_pusat'])) $qry .= " and tb_kontrak_pusat.id = ".$param['id_kontrak_pusat'];
 				if(isset($param['filter'])) $qry .= $param['filter'];

@@ -470,7 +470,7 @@
 
 		function GetByHibahGrouping($id_hibah_provinsi){
 			$qry =	"	
-				SELECT hd.`nama_barang`, barang.`akun`,
+				SELECT hd.`nama_barang`, barang.`akun`, barang.kode_barang,
 					SUM(CASE 	
 					WHEN dt.status_alokasi = 'DATA ADDENDUM 1' THEN
 						dt.jumlah_barang_rev_1

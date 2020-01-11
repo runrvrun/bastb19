@@ -310,7 +310,7 @@
     </div>
     <div class="col-sm-6" style="width: 200px; height: 150px; text-align: center; border-right: solid; border-right-color: #efefef; ">
       <?php if(in_array($this->session->userdata('logged_in')->role_pengguna,array('ADMIN PUSAT'))){ ?>
-      <div class="pie_progress" role="progressbar" data-goal="<?php echo($total_unit_kontrak == 0 ? 0 : ($total_unit/$total_unit_kontrak*100)); ?>" data-barcolor="#3daf2c" aria-valuemin="0" aria-valuemax="100">
+      <div class="pie_progress" role="progressbar" data-goal="<?php echo($total_unit_kontrak == 0 ? 0 : round($total_unit/$total_unit_kontrak*100)); ?>" data-barcolor="#3daf2c" aria-valuemin="0" aria-valuemax="100">
         <span class="pie_progress__number count">0%</span>
       </div>
       % Unit
@@ -318,7 +318,7 @@
     </div>
     <div class="col-sm-6" style="width: 200px; height: 150px; text-align: center; border-right: solid; border-right-color: #efefef; ">
     <?php if(in_array($this->session->userdata('logged_in')->role_pengguna,array('ADMIN PUSAT'))){ ?>
-      <div class="pie_progress" role="progressbar" data-goal="<?php echo($total_nilai_kontrak == 0 ? 0 : ($total_nilai/$total_nilai_kontrak*100)); ?>" data-barcolor="#3daf2c" aria-valuemin="0" aria-valuemax="100">
+      <div class="pie_progress" role="progressbar" data-goal="<?php echo($total_nilai_kontrak == 0 ? 0 : round($total_nilai/$total_nilai_kontrak*100)); ?>" data-barcolor="#3daf2c" aria-valuemin="0" aria-valuemax="100">
         <span class="pie_progress__number count">0%</span>
       </div>
       % Nilai (Rp)
